@@ -1,2 +1,27 @@
-<h1>Public::Orders#confirm</h1>
-<p>Find me in app/views/public/orders/confirm.html.erb</p>
+<div class="container">
+    
+    <h1>注文情報確認画面</h1>
+    
+    <!--買い物の情報が入る-->
+    <p>商品名</p>
+    <P>商品画像</P>
+    <p>商品値段</p>
+    <p>商品個数</p>
+    <p>お金合計</p>
+    
+    <p>支払い方法</p>
+    
+    -------------------
+    <P>配送宛先名</P>
+    <%= @order.name %>
+    <p>配送先郵便番号</p>
+    <%= @order.postal_code %>
+    <p>配送先住所</p>
+    <%= @order.address %><br>
+    
+    <%= link_to "注文を確定する", orders_complete_path %>
+    
+</div>
+
+
+
