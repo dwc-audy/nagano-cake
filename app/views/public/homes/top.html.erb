@@ -1,0 +1,20 @@
+<h4>新着商品</h4>
+
+<!--新着商品の書き方
+Homeコントローラーにindexアクション置く
+　@items = Item.order(created_at: :desc).limit(4)
+View
+  items.each do |item|
+  リンクで商品詳細に飛ばす
+-->
+
+<h4>ジャンル検索</h4>
+
+<!--新着商品の書き方
+Homeコントローラーにindexアクション置く
+　@genres = Genre.all
+View
+  genres.each do |genre|
+  名前押したら商品一覧ページで仕分けされる
+-->
+
