@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  devise_for :admins
+  devise_for :customers
   scope module: :public do
     root :to => 'homes#top'
     get '/about' => 'homes#about'
