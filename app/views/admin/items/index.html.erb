@@ -1,21 +1,21 @@
 <div class="container">
-  
+
   <div class="row">
-    
+
     <div class="col-md-3">
       <h2>商品一覧</h2>
     </div>
-    
+
     <div class="col-md-1">
       <%= link_to new_admin_item_path do %>➕<% end %>
     </div>
-    
+
   </div>
-  
+
   <div class="row">
     <div class="col-md-12">
       <table class="table">
-        
+
         <thead>
           <tr>
             <th>商品ID</th>
@@ -29,15 +29,21 @@
         <tbody>
           <% @items.each do |item| %>
             <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
+              <td><%= item.id %></td>
+              <td><%= item.name %></td>
+              <td><%= item.price.to_s(:delimited) %></td>
+              <td><%= item.genre.name %></td>
+
+              <% if item.is_active == true %>
+                <td class="text-success">販売中</td>
+              <% else %>
+                <td class="text-danger">販売停止中</td>
+              <% end %>
+
             </tr>
           <% end %>
         </tbody>
-        
+
       </table>
     </div>
   </div>
