@@ -1,6 +1,6 @@
 <div class="container">
   <h3>注文情報入力画面（支払い方法・配送先の選択）</h3>
-  <%= form_with model: @order, url: orders_confirm_path, method: :post, local: true do |f| %>
+  <%= form_with(model: @order, url:orders_confirm_path, local: true) do |f| %>
   
     <div class="form-group">
       <%= f.label :配送先宛名 %><br>

@@ -1,7 +1,8 @@
 class Order < ApplicationRecord
   
   has_many :order_details, dependent: :destroy
-  belongs_to :customer
+  #optional: true外部キーのnilを許可するというもの.customerが入ったら消去
+  belongs_to :customer, optional: true
   
   enum payment_method:{
     クレジットカード: 0,
