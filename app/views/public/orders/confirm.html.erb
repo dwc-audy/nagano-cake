@@ -18,8 +18,18 @@
     <%= @order.postal_code %>
     <p>配送先住所</p>
     <%= @order.address %><br>
+    <p>支払い方法</p>
+    <%= @order.payment_method %><br>
     
-    <%= link_to "注文を確定する", orders_complete_path %>
+    <%= form_with(model: @order, local: true) do |f| %>
+      <%= f.hidden_field :name %>
+      <%= f.hidden_field :postal_code %>
+      <%= f.hidden_field :address %>
+      <%= f.hidden_field :payment_method %>
+      <%= f.submit "送信" %>
+      <%= f.submit "戻る", name: :back %>
+    <% end %>
+  
     
 </div>
 
