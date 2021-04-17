@@ -1,22 +1,33 @@
 <div class="container">
   <div class="row">
     <h2>商品新規登録</h2>
+  </div>
 
+  <div class="row">
     <div class="col-md-offset-3 col-md-6">
-      <%= form_with model: @item, local: true do |f| %>
-        <h4>商品画像</h4><%= f.attachment_field :image %>
+      <%= form_with model: @item, url: admin_items_path, local: true do |f| %>
+      <div class></div>
+        <span>商品画像</span><%= f.attachment_field :image %><br />
 
-        <h4>商品名</h4><%= f.text_field :name %>
+        <span>商品名</span><%= f.text_field :name %><br />
 
-        <h4>商品説明</h4><%= f.text_area :introduction %>
+        <span>商品説明</span><%= f.text_area :introduction %><br />
 
-        <h4>ジャンル</h4>
+        <span>ジャンル</span><%= f.collection_select :genre_id, Genre.all, :id, :name, :prompt => "選択してください" %><br />
 
-        <h4>税抜価格</h4>
+        <span>税抜価格</span><%= f.text_field :price, placeholder: "1000" %><br />
 
-        <h4>販売ステータス</h4>
+        <span>販売ステータス</span>
+        <div>
+          <%= f.radio_button :is_active, true %>
+          <%= f.label :is_active, '販売中', value: true %>
+        </div>
+        <div>
+          <%= f.radio_button :is_active, false %>
+          <%= f.label :is_active, '販売停止中', value: false %>
+        </div>
 
-        <%= f.submit '新規登録', class: "btn btn-success btn-block" %>
+        <%= f.submit '新規登録', class: "btn btn-success" %>
       <% end %>
     </div>
   </div>
