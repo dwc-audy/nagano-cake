@@ -1,17 +1,37 @@
 <div class="container">
 
   <h4>注文詳細画面</h4>
-  <!--注文者情報-->
-  <P>購入者</P>
-  <%= @order.name %>
-  <P>配送先</P>
-  <P>支払い方法</P>
-  <P>注文ステータス</P>
-  ーーーーーーーーーーーー
-  <!--注文商品-->
-  <P>商品名前</P>
-  <P>商品画像</P>
-  <P>お金</P>
-  <p>商品状況</p>
+
+  <div class="row">
+    <div class="col-3">
+      <p>製品の画像</p>
+    </div>
+    <div class="col-5">
+      <p>購入者：<%= @customer.last_name %><%= @customer.first_name %></p>
+      <p>商品名</p>
+      <p>商品画像</p>
+      <p>商品値段（税込）</p>
+      <p>個数</p>
+      <p>商品合計</p>
+      <p><%= @order.status %></p>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-3">
+      <h5>配送先</h5>
+      <span>宛先:<%= @order.name %></span><br>
+      <span>郵便番号:<%= @order.postal_code %></span><br>
+      <span>住所:<%= @order.address %></span>
+    </div>
+    <div class="col-5">
+      <h5>編集</h5>
+      <!--製作ステータス入る-->
+      <%= form_with(model: @order, url: admin_order_path, local: true, class: "form-row") do |f| %>
+        <%= f.select :status, options_for_select(Order.statuses.keys) %>
+        <%= f.submit "更新する" %>
+      <% end %>
+    </div>
+  </div>
 
 </div>
