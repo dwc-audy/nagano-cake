@@ -13,8 +13,8 @@ Rails.application.routes.draw do
     root :to => 'homes#top'
     get '/about' => 'homes#about'
     resources :items, only: [:index, :show]
-    resources :cart_items, only: [:index, :update, :destroy, :create]
     delete 'cart_items/destroy_all'
+    resources :cart_items, only: [:index, :update, :destroy, :create]
     get 'customers/my_page' => 'customers#show'
     resource :customers, only: [:edit, :update]
     get 'customers/unsubscribe'
