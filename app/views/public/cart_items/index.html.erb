@@ -23,12 +23,12 @@
         </thead>
 
         <tbody>
-          <% @cart_items.each do |item| %>
+          <% @cart_item.each do |item| %>
             <tr>
-              <td><%= attachment_image_tag item, :image, size: "50x50" %><%= item.name %></td>
-              <td><%= ((@item.price * 1.1).floor).to_s(:delimited) %></td>
+              <td><%= attachment_image_tag item.item, :image, size: "50x50" %><%= item.item.name %></td>
+              <td><%= ((item.item.price * 1.1).floor).to_s(:delimited) %></td>
               <td><%= item.amount %></td>
-              <td><%= ((@item.price * 1.1).floor).to_s(:delimited) %></td>
+              <td><%= ((item.item.price * 1.1).floor).to_s(:delimited) %></td>
               <td></td>
             </tr>
           <% end %>

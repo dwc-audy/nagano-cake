@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  
+
   devise_for :customers, skip: :all
   devise_scope :customer do
     get 'customers/sign_in' => 'public/sessions#new', as: 'new_customer_session'
@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     get 'customers/sign_up' => 'public/registrations#new', as: 'new_customer_registration'
     post 'customers' => 'public/registrations#create', as: 'customer_registration'
   end
-  
+
   scope module: :public do
     root :to => 'homes#top'
     get '/about' => 'homes#about'
@@ -24,7 +24,7 @@ Rails.application.routes.draw do
     post 'orders/confirm'
     resources :addresses, only: [:index, :edit, :create, :update, :destroy]
   end
-  
+
   devise_for :admins, skip: :all
   devise_scope :admin do
     get 'admin/sign_in' => 'admin/sessions#new', as: 'new_admin_session'
