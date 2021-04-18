@@ -1,2 +1,22 @@
-<h1>Public::Orders#show</h1>
-<p>Find me in app/views/public/orders/show.html.erb</p>
+<div class="container">
+  <h1>注文情報の詳細</h1>
+  
+  <h5>商品情報</h5>
+  <p>商品名</p>
+  <p>商品画像</p>
+  <p>商品値段（税込）</p>
+  <p>個数</p>
+  <p>商品合計</p>
+  
+
+  <h5><支払い方法></h5>
+  <span><%= @order.payment_method %></span>
+  
+  <h5><配送先情報></h5>
+  <span>宛先:<%= @order.name %></span><br>
+  <span>郵便番号:<%= @order.postal_code %></span><br>
+  <span>住所:<%= @order.address %></span>
+
+</div>
+
+

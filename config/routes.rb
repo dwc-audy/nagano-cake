@@ -19,9 +19,9 @@ Rails.application.routes.draw do
     resource :customers, only: [:edit, :update]
     get 'customers/unsubscribe'
     patch 'customers/withdraw'
+    post 'orders/complete'
     resources :orders, only: [:new, :create, :index, :show]
     post 'orders/confirm'
-    get 'orders/complete'
     resources :addresses, only: [:index, :edit, :create, :update, :destroy]
   end
   

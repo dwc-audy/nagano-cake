@@ -1,32 +1,71 @@
 <div class="container">
   <h3>注文情報入力画面（支払い方法・配送先の選択）</h3>
-  <%= form_with model: @order, url: orders_confirm_path, method: :post, local: true do |f| %>
-  
-    <div class="form-group">
-      <%= f.label :配送先宛名 %><br>
-      <%= f.text_field :name, class:"form-control" %>
-    </div>
-  
-    <div class="form-group">
-      <%= f.label :配送先郵便番号 %><br>
-      <%= f.text_field :postal_code, class:"form-control" %>
-    </div>
-  
-    <div class="form-group">
-      <%= f.label :配送先住所 %><br>
-      <%= f.text_area :address, class:"form-control" %>
-    </div>
-  
-    <!--ここに送料入る-->
-    <!--ここに請求額入る-->
-  
-    <div class="form-group">
+
+
+  <%= form_with(model: @order, local: true, url: orders_confirm_path, method: :post) do |f| %>
+
+  <!--支払い方法選択-->
+
+    <h4>支払い方法選択</h4>
+    <div class="form-group border border-primary">
       <%= f.label :支払い方法選択 %><br>
       <%= f.select :payment_method, options_for_select(Order.payment_methods.keys)  %>
     </div>
-  
+   <!--javascriptで選択後表示させるようにする-->
+   <!--配送先の選択-->
+    <h4>お届け先</h4>
+  　<!--ユーザーの住所-->
+  　<div class="border border-primary">
+    　<label><%= f.radio_button :address_number,1,checked: "checked" %> あなたの住所 </label><br>
+    　<%= current_customer.last_name %><br>
+    　<%= current_customer.first_name %><br>
+    　<%= current_customer.postal_code %><br>
+    　<%= current_customer.address %>
+  　</div>
+
+  　<!--登録されている住所-->
+  　<div class="border border-primary">
+    　<label><%= f.radio_button :address_number,2,checked: "checked" %> 登録されている住所 </label>
+  　</div>
+
+  　<!--新しく登録したい住所-->
+  　<div class="border border-primary">
+  　 
+  　　<label><%= f.radio_button :address_number,3,checked: "checked" %>新しい住所</label>
+
+      <div class="form-group">
+        <%= f.label :配送先宛名 %><br>
+        <%= f.text_field :name, class:"form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :配送先郵便番号 %><br>
+        <%= f.text_field :postal_code, class:"form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :配送先住所 %><br>
+        <%= f.text_area :address, class:"form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :送料 %><br>
+        <%= f.number_field :shipping_cost, class:"form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :請求額 %><br>
+        <%= f.number_field :total_payment, class:"form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :注文ステータス %><br>
+        <%= f.text_area :status, class:"form-control" %>
+      </div>
+
+  　</div>
     <%= f.submit "確認画面へ進む", class:"btn btn-success" %>
-  
+
   <% end %>
-  
+
 </div>
