@@ -23,11 +23,9 @@
         <p>配送先住所</p>
         <%= @order.address %><br>
         
-        
-    
     </div>
             
-    <%= form_with(model: @order, local: true, url: orders_complete_path, method: :post) do |f| %>
+    <%= form_with(model: @order, local: true, url: orders_path) do |f| %>
         <%= f.hidden_field :payment_method %>
         <%= f.hidden_field :name %>
         <%= f.hidden_field :postal_code %>

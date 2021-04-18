@@ -2,7 +2,7 @@ class Public::OrdersController < ApplicationController
   def new
     @order = Order.new
   end
-  
+
   def create
     @order = Order.new(order_params)
     if params[:back]
@@ -10,7 +10,7 @@ class Public::OrdersController < ApplicationController
     else @order.save!
       redirect_to orders_complete_path
     end
-    
+
   end
 
   def index
@@ -37,8 +37,6 @@ class Public::OrdersController < ApplicationController
       @order.name = params[:order][:name]
       @order.postal_code = params[:order][:postal_code]
       @order.customer_id = current_customer.id
-      if @order.save
-      end
     end
   end
 
