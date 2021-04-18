@@ -1,16 +1,16 @@
 <div class="container">
   <div class="row">
-    <h2>ジャンル一覧・追加</h2>
+    <div class="col-md-6 col-md-offset-3">
+      <h4 class="text-center">ジャンル一覧・追加</h4>
+    </div>
   </div>
 
-  <div class="row">
+  <div class="row mt-5 mb-5">
     <div class="col-md-12">
       <%= form_with model: @genre, url: admin_genres_path, local: true do|f| %>
-      <div class="col-md-6">
-        <span class="h6">ジャンル名</span>
+        <span class="h6 mr-5">ジャンル名</span>
         <%= f.text_field :name, placeholder: "ジャンル名" %>
-        <%= f.submit "新規登録", class: "btn btn-success" %>
-      </div>
+        <%= f.submit "新規登録", class: "btn btn-success ml-5" %>
       <% end %>
     </div>
   </div>
@@ -20,7 +20,8 @@
       <table class="table">
         <thead>
           <tr>
-            <th>ジャンル</th>
+            <th class="text-center">ジャンル</th>
+            <th></th>
           </tr>
         </thead>
 
