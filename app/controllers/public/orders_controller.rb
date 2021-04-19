@@ -4,6 +4,7 @@ class Public::OrdersController < ApplicationController
   
   def new
     @order = Order.new
+    @customer = current_customer
   end
 
   def create
@@ -17,12 +18,13 @@ class Public::OrdersController < ApplicationController
   end
 
   def index
-    @customer = current_customer
-		@orders = @customer.orders
+    @orders = current_customer.orders
   end
 
   def show
     @order = Order.find(params[:id])
+    @order_details = @order.order_details
+    @sum = 0
   end
 
   def confirm
@@ -41,22 +43,37 @@ class Public::OrdersController < ApplicationController
       @order.postal_code = params[:order][:postal_code]
       @order.customer_id = current_customer.id
     end
+
+    @cart_items = CartItem.where(customer_id: current_customer.id)
+    @sum = 0
   end
 
   def create
     @order = Order.new(order_params)
     @order.customer_id = current_customer.id
     @order.save!
-    redirect_to orders_complete_path
+
+    @cart_items = CartItem.where(customer_id: current_customer.id)
+    
+    @cart_items.each do |cart_item| #カートの商品を1つずつ取り出しループ
+      @order_details = OrderDetail.new
+      @order_details.item_id = cart_item.item_id #商品idを注文商品idに代入
+      @order_details.amount = cart_item.amount #商品の個数を注文商品の個数に代入
+      @order_details.price = (cart_item.item.price*1.1).floor #消費税込みに計算して代入
+      @order_details.order_id = @order.id #注文商品に注文idを紐付け
+      @order_details.save #注文商品を保存
+    end
+    
+    @cart_items.destroy_all #カートの中身を削除
+    redirect_to orders_complete_path #thanksに遷移
+
   end
 
   def complete
-
   end
 
   private
   def order_params
-    params.require(:order).permit(:customer_id, :postal_code, :address, :name, :shipping_cost, :total_payment, :payment_method, :status)
-
+    params.require(:order).permit(:customer_id, :postal_code, :address, :name, :total_payment, :payment_method, :shipping_cost)
   end
 end
