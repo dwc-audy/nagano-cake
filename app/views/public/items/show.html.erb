@@ -1,19 +1,21 @@
 <div class="container">
-  <div class="row">
-    <div class="col-md-3">
-      <%= attachment_image_tag @item, :image, size: "100x100" %>
+  <div class="row mt-4 pt-4">
+    <div class="col-md-5">
+      <%= attachment_image_tag @item, :image, size: "250x250" %>
     </div>
 
-    <div class="col-md-6">
-      <%= @item.name %><br />
-      <%= @item.introduction %><br />
-      ¥<%= ((@item.price * 1.1).floor).to_s(:delimited) %><small>(税込)</small>
+    <div class="col-md-5">
+      <h4 class="mb-4"><strong><%= @item.name %></strong></h4>
+      <p class="mb-4"><%= @item.introduction %></p>
+      <p class="mb-4">¥<%= ((@item.price * 1.1).floor).to_s(:delimited) %><small>(税込)</small></p>
+
 
       <%= form_with model: @cart_items, url: cart_items_path, local: true do |f| %>
         <%= f.hidden_field :item_id, value: @item.id %>
         <%= f.select :amount, options_for_select((1..20).to_a), include_blank: "個数選択" %>
         <%= f.submit 'カートに入れる', class: "btn btn-success" %>
       <% end %>
+
     </div>
   </div>
 </div>
