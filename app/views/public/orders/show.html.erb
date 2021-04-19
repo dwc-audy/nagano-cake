@@ -1,22 +1,72 @@
 <div class="container">
-  <h1>注文情報の詳細</h1>
-  
-  <h5>商品情報</h5>
-  <p>商品名</p>
-  <p>商品画像</p>
-  <p>商品値段（税込）</p>
-  <p>個数</p>
-  <p>商品合計</p>
-  
+  <div class="row">
+    <div class="col-md-12">
+      <h4>注文商品</h4>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>商品名</th>
+            <th>注文日</th>
+            <th>単価（税込)</th>
+            <th>数量</th>
+            <th>小計</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @order_details.each do |order_detail| %>
+            <% @sum += (order_detail.price*1*order_detail.amount).floor %>
+            <tr>
+              <td><%= order_detail.item.name %><%= attachment_image_tag order_detail.item, :image, size: "50x50" %></td>
+              <td><%= order_detail.created_at.strftime('%Y/%m/%d') %></td>
+              <td><%= ((order_detail.item.price * 1.1).floor).to_s(:delimited) %></td>
+              <td><%= order_detail.amount %></td>
+              <td><%= ((order_detail.item.price * 1.1).floor) * order_detail.amount %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
 
-  <h5><支払い方法></h5>
-  <span><%= @order.payment_method %></span>
+  <div class="row">
+    <div class="col-md-8">
+      <h4>請求情報</h4>
+      <table class="table table-bordered">
+        <tr>
+          <th>支払い方法</th>
+          <td><%= @order.payment_method %></td>
+        </tr>
+        <tr>
+          <th>配送料</th>
+          <td><P>800円</P></td>
+        </tr>
+        <tr>
+          <th>請求金額</th>
+          <td><%= (@sum+800).to_s+"円" %></td>
+        </tr>
+      </table>
+    </div>
+  </div>
   
-  <h5><配送先情報></h5>
-  <span>宛先:<%= @order.name %></span><br>
-  <span>郵便番号:<%= @order.postal_code %></span><br>
-  <span>住所:<%= @order.address %></span>
-
+  <div class="row">
+    <div class="col-md-8">
+      <h4>配送先情報</h4>
+      <table class="table table-bordered">
+        <tr>
+          <th>宛先</th>
+          <td><%= @order.name %></td>
+        </tr>
+        <tr>
+          <th>郵便番号</th>
+          <td><%= @order.postal_code %></td>
+        </tr>
+        <tr>
+          <th>住所</th>
+          <td><%= @order.address %></td>
+        </tr>
+      </table>
+    </div>
+  </div>
 </div>
 
 
