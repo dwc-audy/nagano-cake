@@ -1,2 +1,23 @@
 <h1>Public::Addresses#edit</h1>
 <p>Find me in app/views/public/addresses/edit.html.erb</p>
+
+<%= form_with model: @address, local: true do |f| %>
+  <div class="field">
+    <%= f.label :postal_code %><br />
+    <%= f.text_field :postal_code, autofocus: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :address %><br />
+    <%= f.text_field :address, autofocus: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name, autofocus: true %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "変更保存" %>
+  </div>
+<% end %>
