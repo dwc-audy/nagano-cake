@@ -1,6 +1,7 @@
 <h1>Public::Addresses#edit</h1>
 <p>Find me in app/views/public/addresses/edit.html.erb</p>
 
+<%= render 'layouts/errors', obj: @address %>
 <%= form_with model: @address, local: true do |f| %>
   <div class="field">
     <%= f.label :postal_code, "郵便番号(ハイフン不要):" %><br />

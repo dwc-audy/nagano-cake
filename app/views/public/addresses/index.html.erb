@@ -23,7 +23,8 @@
   </tbody>
 </table>
 
-<%= form_with model: Address.new, local: true do |f| %>
+<%= render 'layouts/errors', obj: @address %>
+<%= form_with model: @address, local: true do |f| %>
   <div class="field">
     <%= f.label :postal_code, "郵便番号(ハイフン不要):" %><br />
     <%= f.text_field :postal_code, autofocus: true, placeholder: "例)3810000" %>
