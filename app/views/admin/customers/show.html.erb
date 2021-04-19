@@ -9,5 +9,13 @@
 <p>住所: <%= @customer.address %></p>
 <p>電話番号: <%= @customer.telephone_number %></p>
 <p>メールアドレス: <%= @customer.email %></p>
+<p>
+  会員ステータス:
+  <% if @customer.is_deleted == false %>
+    有効
+  <% else %>
+    退会
+  <% end %>
+</p>
 <%= link_to "編集", edit_admin_customer_path(@customer.id), class: "btn" %>
 <%= link_to "注文履歴", admin_root_path, class: "btn" %>
