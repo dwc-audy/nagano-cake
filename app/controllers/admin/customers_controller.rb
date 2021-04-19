@@ -1,6 +1,8 @@
 class Admin::CustomersController < ApplicationController
   before_action :set_customer, only: [:show, :edit, :update]
   
+  layout 'admin'
+  
   def index
     @customers = Customer.all
   end

@@ -1,4 +1,7 @@
 class Public::ItemsController < ApplicationController
+  
+  layout 'public'
+  
   def index
     @items = Item.all
   end
