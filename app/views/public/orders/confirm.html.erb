@@ -1,40 +1,82 @@
 <div class="container">
-   
-    <div>
-        <h4>・注文商品確認画面</h4>
-        <p>商品名</p>
-        <P>商品画像</P>
-        <p>商品値段（税込）</p>
-        <p>個数</p>
-        <p>商品合計</p>
+    <%= form_with(model: @order, local: true, url: orders_path) do |f| %>
+    <div class="row">
+      <div class="col-md-12">
+        <h4>注文商品</h4>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>商品名</th>
+              <th>注文日</th>
+              <th>単価（税込)</th>
+              <th>数量</th>
+              <th>小計</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @cart_items.each do |cart_item| %>
+              <% @sum += (cart_item.item.price*1.1*cart_item.amount).floor %>
+              <tr>
+                <td><%= cart_item.item.name %><%= attachment_image_tag cart_item.item, :image, size: "50x50" %></td>
+                <td></td>
+                <td><%= ((cart_item.item.price * 1.1).floor).to_s(:delimited) %></td>
+                <td><%= cart_item.amount %></td>
+                <td><%= ((cart_item.item.price * 1.1).floor) * cart_item.amount %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
     </div>
     
-    <div>
-        <h4>・支払い方法</h4>
-        <%= @order.payment_method %>
+    <div class="row">
+      <div class="col-md-8">
+        <h4>請求情報</h4>
+        <table class="table table-bordered">
+          <tr>
+            <th>支払い方法</th>
+            <td><%= @order.payment_method %></td>
+          </tr>
+          <tr>
+            <th>送料</th>
+            <td><P>800円</P></td>
+          </tr>
+          <tr>
+            <th>請求金額</th>
+            <td><%= (@sum+800).to_s+"円" %></td>
+          </tr>
+        </table>
+      </div>
     </div>
-
-    <div>
-        <h4>・配送先情報</h4>
-        <P>配送宛先名</P>
-        <%= @order.name %>
-        <p>配送先郵便番号</p>
-        <%= @order.postal_code %>
-        <p>配送先住所</p>
-        <%= @order.address %><br>
-        
+    
+    <div class="row">
+      <div class="col-md-8">
+        <h4>配送先情報</h4>
+        <table class="table table-bordered">
+          <tr>
+            <th>宛先</th>
+            <td><%= @order.name %></td>
+          </tr>
+          <tr>
+            <th>郵便番号</th>
+            <td><%= @order.postal_code %></td>
+          </tr>
+          <tr>
+            <th>住所</th>
+            <td><%= @order.address %></td>
+          </tr>
+        </table>
+      </div>
     </div>
-            
-    <%= form_with(model: @order, local: true, url: orders_path) do |f| %>
-        <%= f.hidden_field :payment_method %>
-        <%= f.hidden_field :name %>
-        <%= f.hidden_field :postal_code %>
-        <%= f.hidden_field :address %>
-        <%= f.hidden_field :shipping_cost %>
-        <%= f.hidden_field :total_payment %>
-        <%= f.hidden_field :status %>
-        <%= f.submit %>
-    <% end %>
+    
+      <%= f.hidden_field :payment_method, :value => @order.payment_method %>
+      <%= f.hidden_field :name, :value => @order.name %>
+      <%= f.hidden_field :postal_code, :value => @order.postal_code %>
+      <%= f.hidden_field :address, :value => @order.address%>
+      <%= f.hidden_field :shipping_cost, :value => 800 %>
+      <%= f.hidden_field :total_payment, :value => @sum %>
+      <%= f.submit"購入する", class: "btn btn-success" %>
+  <% end %>
 
 </div>
 
