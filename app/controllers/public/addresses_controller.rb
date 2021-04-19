@@ -1,6 +1,8 @@
 class Public::AddressesController < ApplicationController
   before_action :set_address, only: [:destroy, :edit, :update]
 
+  layout 'public'
+
   def index
     @addresses = current_customer.addresses
   end
