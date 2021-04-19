@@ -1,4 +1,7 @@
 class Public::OrdersController < ApplicationController
+  
+  layout 'public'
+  
   def new
     @order = Order.new
   end
