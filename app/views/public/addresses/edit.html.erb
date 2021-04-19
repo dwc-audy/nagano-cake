@@ -3,18 +3,18 @@
 
 <%= form_with model: @address, local: true do |f| %>
   <div class="field">
-    <%= f.label :postal_code %><br />
-    <%= f.text_field :postal_code, autofocus: true %>
+    <%= f.label :postal_code, "郵便番号(ハイフン不要):" %><br />
+    <%= f.text_field :postal_code, autofocus: true, placeholder: "例)3810000" %>
   </div>
 
   <div class="field">
-    <%= f.label :address %><br />
-    <%= f.text_field :address, autofocus: true %>
+    <%= f.label :address, "住所(部屋番号まで)" %><br />
+    <%= f.text_field :address, autofocus: true, placeholder: "例)長野県長野市〇-〇-〇" %>
   </div>
 
   <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name, autofocus: true %>
+    <%= f.label :name, "宛先:" %><br />
+    <%= f.text_field :name, autofocus: true, autofocus: true, placeholder: "例)長野花子" %>
   </div>
 
   <div class="actions">

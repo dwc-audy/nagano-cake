@@ -1,6 +1,6 @@
 class Public::CustomersController < ApplicationController
   before_action :set_customer, only: [:show, :edit, :update, :withdraw]
-  
+
   layout 'public'
 
   def show
