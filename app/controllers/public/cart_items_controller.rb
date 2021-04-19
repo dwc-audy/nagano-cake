@@ -1,5 +1,5 @@
 class Public::CartItemsController < ApplicationController
-  
+
   layout 'public'
 
 
@@ -14,8 +14,8 @@ class Public::CartItemsController < ApplicationController
     if @cart_item.save
       redirect_to cart_items_path
     else
-      flash[:alert] = "失敗"
-      render :index
+      @item = Item.find_by(id: @cart_item.item_id)
+      redirect_to item_path(@item), flash: {alert: '※個数を選択して下さい'}
     end
   end
 
