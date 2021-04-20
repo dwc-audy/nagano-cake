@@ -1,5 +1,7 @@
 class Public::CartItemsController < ApplicationController
 
+  before_action :authenticate_customer!
+
   layout 'public'
 
 
@@ -15,7 +17,7 @@ class Public::CartItemsController < ApplicationController
       redirect_to cart_items_path
     else
       @item = Item.find_by(id: @cart_item.item_id)
-      redirect_to item_path(@item), flash: {alert: '※個数を選択して下さい'}
+      redirect_to item_path(@item), flash: {notice: '個数を選択して下さい'}
     end
   end
 
