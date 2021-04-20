@@ -1,5 +1,13 @@
-<h1>Public::Addresses#edit</h1>
-<p>Find me in app/views/public/addresses/edit.html.erb</p>
-
-<%= render 'layouts/errors', obj: @address %>
-<%= render 'public/addresses/form', address: @address %>
+<div class="container">
+  <div class="row mx-auto">
+    <p class="h4 mt-4 mb-5">配送先編集</p>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="col-md-5 mx-auto">
+        <%= render 'layouts/errors', obj: @address %>
+        <%= render 'public/addresses/form', address: @address %>
+      </div>
+    </div>
+  </div>
+</div>

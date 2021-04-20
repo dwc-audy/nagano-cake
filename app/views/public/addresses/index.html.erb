@@ -1,27 +1,35 @@
-<h1>Public::Addresses#index</h1>
-<p>Find me in app/views/public/addresses/index.html.erb</p>
-
-<table class="table">
-  <thead>
-    <tr>
-      <th>郵便番号</th>
-      <th>住所</th>
-      <th>宛先</th>
-      <th calspan="2"></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @addresses.each do |address| %>
-      <tr>
-        <td><%= address.postal_code %></td>
-        <td><%= address.address %></td>
-        <td><%= address.name %></td>
-        <td><%= link_to "編集", edit_address_path(address.id), class: "btn btn-primary" %></td>
-        <td><%= link_to "削除", address_path(address.id), method: :delete, class: "btn btn-danger" %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<%= render 'layouts/errors', obj: @address %>
-<%= render 'public/addresses/form', address: @address %>
+<div class="container">
+  <div class="row mx-auto">
+    <p class="h4 mt-4 mb-5">配送先一覧</p>
+  </div>
+  <div class="row">
+    <div class="col-md-9">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>郵便番号</th>
+          <th>住所</th>
+          <th>宛先</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @addresses.each do |address| %>
+          <tr>
+            <td><%= address.postal_code %></td>
+            <td><%= address.address %></td>
+            <td><%= address.name %></td>
+            <td><%= link_to "編集", edit_address_path(address.id), class: "btn btn-primary" %></td>
+            <td><%= link_to "削除", address_path(address.id), method: :delete, class: "btn btn-danger" %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    </div>
+    <div class="col-md-3">
+      <%= render 'layouts/errors', obj: @address %>
+      <%= render 'public/addresses/form', address: @address %>
+    </div>
+  </div>
+</div>
