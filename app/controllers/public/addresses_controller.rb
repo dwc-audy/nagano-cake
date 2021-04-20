@@ -1,4 +1,5 @@
 class Public::AddressesController < ApplicationController
+  before_action :authenticate_customer!
   before_action :set_address, only: [:destroy, :edit, :update]
 
   layout 'public'
