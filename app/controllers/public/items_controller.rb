@@ -10,4 +10,9 @@ class Public::ItemsController < ApplicationController
     @item = Item.find(params[:id])
     @cart_items = CartItem.new
   end
+  
+  def search
+    @items = Item.where(genre_id: params[:format])
+    render 'index'
+  end
 end
