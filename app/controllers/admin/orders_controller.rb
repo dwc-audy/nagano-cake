@@ -3,8 +3,8 @@ class Admin::OrdersController < ApplicationController
   layout 'admin'
 
   def show
-   @customer = Customer.find(params[:id])
    @order = Order.find(params[:id])
+   @order_details = @order.order_details
   end
 
   def update
