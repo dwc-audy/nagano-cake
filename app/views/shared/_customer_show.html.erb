@@ -1,18 +1,24 @@
-<p>名前(姓): <%= customer.last_name %></p>
-<p>名前(名): <%= customer.first_name %></p>
-<p>名前(カナ姓): <%= customer.last_name_kana %></p>
-<p>名前(カナ名): <%= customer.first_name_kana %></p>
-<p>郵便番号: <%= customer.postal_code %></p>
-<p>住所: <%= customer.address %></p>
-<p>電話番号: <%= customer.telephone_number %></p>
-<p>メールアドレス: <%= customer.email %></p>
-<% if admin_signed_in? %>
-  <p>
-    会員ステータス:
-    <% if customer.is_deleted == false %>
-      有効
-    <% else %>
-      退会
-    <% end %>
-  </p>
-<% end %>
+<table class="table">
+  <tr><th>名前</th></tr>
+  <tr><td><%= customer.last_name %> <%= customer.first_name %></td></tr>
+  <tr><th>名前(カナ)</th></tr>
+  <tr><td><%= customer.last_name_kana %> <%= customer.first_name_kana %></td></tr>
+  <tr><th>住所</th></tr>
+  <tr><td>〒<%= customer.postal_code %> <%= customer.address %></td></tr>
+  <tr><th>電話番号</th></tr>
+  <tr><td><%= customer.telephone_number %></td></tr>
+  <tr><th>メールアドレス</th></tr>
+  <tr><td><%= customer.email %></td></tr>
+  <% if admin_signed_in? %>
+    <tr><th>会員ステータス</th></tr>
+    <tr>
+      <td>
+        <% if customer.is_deleted == false %>
+          有効
+        <% else %>
+          退会
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+</table>

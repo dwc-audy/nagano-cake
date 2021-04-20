@@ -1,9 +1,13 @@
-<h1>Public::Customers#show</h1>
-<p>Find me in app/views/public/customers/show.html.erb</p>
-
-<%= render 'shared/customer_show', customer: @customer %>
-
-<%= link_to "編集", edit_customers_path, class: "btn" %>
-
-<%= link_to "配送先", addresses_path %>
-<%= link_to "注文履歴", orders_path %>
+<div class="container">
+  <div class="row mt-4 mb-4">
+    <h4>マイページ</h4>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      <%= render 'shared/customer_show', customer: @customer %>
+      <%= link_to "編集", edit_customers_path, class: "btn btn-success" %></br>
+      <%= link_to "配送先", addresses_path %> /
+      <%= link_to "注文履歴一覧", orders_path %>
+    </div>
+  </div>
+</div>
