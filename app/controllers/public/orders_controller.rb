@@ -5,6 +5,7 @@ class Public::OrdersController < ApplicationController
   def new
     @order = Order.new
     @customer = current_customer
+    @address = Address.new
   end
 
   def create
@@ -36,6 +37,9 @@ class Public::OrdersController < ApplicationController
       @order.name = current_customer.last_name + current_customer.first_name
 
     elsif params[:order][:address_number]=="2"
+      @order.postal_code = Address.find(params[:order][:address_id]).postal_code
+      @order.address = Address.find(params[:order][:address_id]).address 
+      @order.name = Address.find(params[:order][:address_id]).name 
 
     elsif params[:order][:address_number]=="3"
       @order.address = params[:order][:address]
