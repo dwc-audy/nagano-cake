@@ -1,15 +1,12 @@
 <div class="container">
-  <div class="row mb-4 mx-auto">
-    <div class="col-md-12">
-      <p class="h4 mt-4 mb-5">会員新規登録</p>
-    </div>
+  <div class="row mx-auto">
+    <p class="h4 mt-4 mb-5">会員情報編集</p>
   </div>
   <div class="row">
     <div class="col-md-12">
-      <%= form_for resource, as: resource_name, url: registration_path(resource_name) do |f| %>
-        <div class="col-md-5 mx-auto">
-          <%= render "public/registrations/error_messages", resource: resource %>
-
+      <%= render 'layouts/errors', obj: @customer %>
+      <div class="col-md-5 mx-auto">
+        <%= form_with model: customer, url: admin_customer_path(customer.id), local: true do |f| %>
           <div class="form-group">
             <%= f.label :last_name, "名前(姓):" %><br />
             <%= f.text_field :last_name, autofocus: true, placeholder: "例)長野", class: "form-control" %>
@@ -50,22 +47,22 @@
             <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "例)nagano@cake.jp", class: "form-control" %>
           </div>
 
-          <div class="form-group">
-            <%= f.label :password, "パスワード(6文字以上):" %><br />
-            <%= f.password_field :password, autocomplete: "new-password", placeholder: "パスワードを入力して下さい", class: "form-control" %>
-          </div>
+          <% if admin_signed_in? %>
+            <div class="form-group">
+              <%= f.label :is_deleted, "有効" %>
+              <%= f.radio_button :is_deleted, false %>
+              <%= f.label :is_deleted, "退会" %>
+              <%= f.radio_button :is_deleted, true %>
+            </div>
+          <% end %>
 
-          <div class="form-group">
-            <%= f.label :password_confirmation, "パスワード(確認):" %><br />
-            <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "パスワードを入力して下さい", class: "form-control" %>
-          </div>
-
-          <div class="form-group">
-            <%= f.submit "新規登録", class: 'btn btn-success' %>
+          <div class="actions">
+            <%= f.submit "変更保存", class: "btn btn-success btn-block" %>
           </div>
         <% end %>
-
-        <%= link_to "ログイン", new_session_path(resource_name) %>
+        <% if customer_signed_in? %>
+          <%= link_to "退会", customers_unsubscribe_path %>
+        <% end %>
       </div>
     </div>
   </div>
