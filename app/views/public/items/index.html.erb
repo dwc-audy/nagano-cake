@@ -12,5 +12,6 @@
         <p class="mx-left">¥<%= ((item.price * 1.1).floor).to_s(:delimited) %></p>
       </div>
     <% end %>
+    <%= paginate @items %>
   </div>
 </div>
