@@ -1,31 +1,41 @@
-<h1>Admin::Customers#index</h1>
-<p>Find me in app/views/admin/customers/index.html.erb</p>
-
-<table class="table">
-  <thead>
-    <tr>
-      <th>名前</th>
-      <th>メールアドレス</th>
-      <th>会員ステータス</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @customers.each do |customer| %>
-      <tr>
-        <td>
-          <%= link_to admin_customer_path(customer.id) do %>
-            <%= customer.last_name %> <%= customer.first_name %>
+<div class="container">
+  <div class="row mx-auto">
+    <p class="h4 mt-4 mb-5">会員一覧</p>
+  </div>
+  <div class="row">
+    <div class="col-md-9">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>名前</th>
+            <th>メールアドレス</th>
+            <th>住所</th>
+            <th>電話番号</th>
+            <th>会員ステータス</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @customers.each do |customer| %>
+            <tr>
+              <td>
+                <%= link_to admin_customer_path(customer.id) do %>
+                  <%= customer.last_name %> <%= customer.first_name %>
+                <% end %>
+              </td>
+              <td><%= customer.email %></td>
+              <td>〒<%= customer.postal_code %> <%= customer.address %></td>
+              <td><%= customer.telephone_number %></td>
+              <td>
+                <% if customer.is_deleted == false %>
+                  有効
+                <% else %>
+                  退会
+                <% end %>
+              </td>
+            </tr>
           <% end %>
-        </td>
-        <td><%= customer.email %></td>
-        <td>
-          <% if customer.is_deleted == false %>
-            有効
-          <% else %>
-            退会
-          <% end %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
