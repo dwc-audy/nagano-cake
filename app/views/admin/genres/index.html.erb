@@ -1,4 +1,13 @@
 <div class="container">
+  <div class="text-danger">
+    <% if @genre.errors.any? %>
+      <%= @genre.errors.count %>件のエラーが発生しました<br />
+      <% @genre.errors.full_messages.each do |message|%>
+        <%= message %>
+      <% end %>
+    <% end %>
+  </div>
+
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
       <h4 class="text-center mt-4 mb-5">ジャンル一覧・追加</h4>

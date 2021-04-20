@@ -1,6 +1,6 @@
 class Public::CustomersController < ApplicationController
   before_action :set_customer, only: [:show, :edit, :update, :withdraw]
-  
+
   layout 'public'
 
   def show
@@ -10,8 +10,11 @@ class Public::CustomersController < ApplicationController
   end
 
   def update
-    @customer.update(customer_params)
-    render 'show'
+    if @customer.update(customer_params)
+      redirect_to customers_my_page_path
+    else
+      render 'edit'
+    end
   end
 
   def unsubscribe
