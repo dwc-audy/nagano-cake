@@ -1,16 +1,31 @@
-<h4>全会員の注文履歴</h4>
-<!--
-コントローラー
-@orders = Order.all
-ビュー
-購入日時
-購入者
-注文個数
-ステータス
-  入金情報
-  発送状況
--->
-
-<h4>会員詳細からの該当会員のみの注文履歴</h4>
-
-<h4>注文日時をクリック</h4>
+<div class="container">
+  <h4>注文の一覧</h4>
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>注文日</th>
+            <th>注文者</th>
+            <th>状況</th>
+            <th>詳細</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @orders.each do |order| %>
+            <tr>
+              <td><%= order.created_at.strftime('%Y/%m/%d') %></td>
+              <td>
+                <% order.customer.last_name %> <%= order.customer.first_name %>
+              </td>
+              <td><%= order.status %></td>
+              <td>
+                <%= link_to '表示する',admin_order_path(order), class: "btn btn-warning" %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

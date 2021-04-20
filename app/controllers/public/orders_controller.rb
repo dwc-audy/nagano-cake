@@ -55,17 +55,17 @@ class Public::OrdersController < ApplicationController
 
     @cart_items = CartItem.where(customer_id: current_customer.id)
     
-    @cart_items.each do |cart_item| #カートの商品を1つずつ取り出しループ
+    @cart_items.each do |cart_item| 
       @order_details = OrderDetail.new
-      @order_details.item_id = cart_item.item_id #商品idを注文商品idに代入
-      @order_details.amount = cart_item.amount #商品の個数を注文商品の個数に代入
-      @order_details.price = (cart_item.item.price*1.1).floor #消費税込みに計算して代入
-      @order_details.order_id = @order.id #注文商品に注文idを紐付け
-      @order_details.save #注文商品を保存
+      @order_details.item_id = cart_item.item_id 
+      @order_details.amount = cart_item.amount 
+      @order_details.price = (cart_item.item.price*1.1).floor 
+      @order_details.order_id = @order.id 
+      @order_details.save 
     end
     
-    @cart_items.destroy_all #カートの中身を削除
-    redirect_to orders_complete_path #thanksに遷移
+    @cart_items.destroy_all
+    redirect_to orders_complete_path 
 
   end
 

@@ -1,37 +1,97 @@
 <div class="container">
-
-  <h4>注文詳細画面</h4>
-
+  <h5>注文詳細</h5>
   <div class="row">
-    <div class="col-3">
-      <p>製品の画像</p>
+    <div class="col-md-5">
+      <table class="table table-bordered">
+        <tr>
+          <th>購入者</th>
+          <td><%= @order.customer.last_name %> <%= @order.customer.first_name %></td>
+        </tr>
+        <tr>
+          <th>注文日</th>
+          <td><%= @order.created_at.strftime('%Y/%m/%d') %></td>
+        </tr>
+      </table>
     </div>
-    <div class="col-5">
-      <p>購入者：<%= @customer.last_name %><%= @customer.first_name %></p>
-      <p>商品名</p>
-      <p>商品画像</p>
-      <p>商品値段（税込）</p>
-      <p>個数</p>
-      <p>商品合計</p>
-      <p><%= @order.status %></p>
+    <div class="col-md-7">
+      <table class="table table-bordered">
+        <tr>
+          <th>支払い方法</th>
+          <td><%= @order.payment_method %></td>
+        </tr>
+        <tr>
+          <th>請求額</th>
+          <td><%= @order.total_payment %></td>
+        </tr>
+        <tr>
+          <th>入金状態</th>
+          <td>
+            <%= form_with(model: @order, url: admin_order_path, local: true, class: "form-row") do |f| %>
+              <%= f.select :status, Order.statuses.keys.to_a %>
+              <%= f.submit "更新する" %>
+            <% end %>
+          </td>
+        </tr>
+      </table>
     </div>
   </div>
-  
+
+  <h5>注文商品</h5>
   <div class="row">
-    <div class="col-3">
-      <h5>配送先</h5>
-      <span>宛先:<%= @order.name %></span><br>
-      <span>郵便番号:<%= @order.postal_code %></span><br>
-      <span>住所:<%= @order.address %></span>
-    </div>
-    <div class="col-5">
-      <h5>編集</h5>
-      <!--製作ステータス入る-->
-      <%= form_with(model: @order, url: admin_order_path, local: true, class: "form-row") do |f| %>
-        <%= f.select :status, options_for_select(Order.statuses.keys) %>
-        <%= f.submit "更新する" %>
-      <% end %>
+    <div class="col-md-10">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>商品名</th>
+            <th>数量</th>
+            <th>製作ステータス</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @order_details.each do |order_detail| %>
+            <tr>
+              <td>
+                <%= order_detail.item.name %>
+              </td>
+              <td>
+                <%= order_detail.amount %>
+              </td>
+              <td>
+                <%= order_detail.making_status %>
+              </td>
+             <%= form_with(model: order_detail, url: admin_order_detail_path(order_detail),local: true) do |f| %>
+              <td>
+                <%= f.select :making_status, OrderDetail.making_statuses.keys.to_a %>
+                <%= f.submit "更新する" %>
+              </td>
+             <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
     </div>
   </div>
 
+　<h5>配送先について</h5>
+  <div class="row">
+    <div class="col-md-8">
+      <table class="table table-bordered">
+        <tr>
+          <th>宛先</th>
+          <td><%= @order.name %></td>
+        </tr>
+        <tr>
+          <th>郵便番号</th>
+          <td><%= @order.postal_code %></td>
+        </tr>
+        <tr>
+          <th>住所</th>
+          <td><%= @order.address %></td>
+        </tr>
+      </table>
+    </div>
+  </div>
 </div>
+
+
