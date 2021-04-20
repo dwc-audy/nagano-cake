@@ -13,7 +13,7 @@ $(function() {
   return $("#address_postal_code").jpostal({
     postcode: ["#address_postal_code"],
     address: {
-      "#address_postal_code": '%3%4%5',
+      "#address_address": '%3%4%5',
     },
   });
 });
