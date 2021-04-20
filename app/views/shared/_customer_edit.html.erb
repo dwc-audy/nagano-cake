@@ -6,7 +6,7 @@
     <div class="col-md-12">
       <%= render 'layouts/errors', obj: @customer %>
       <div class="col-md-5 mx-auto">
-        <%= form_with model: customer, url: admin_customer_path(customer.id), local: true do |f| %>
+        <%= form_with model: customer, url: path, local: true do |f| %>
           <div class="form-group">
             <%= f.label :last_name, "名前(姓):" %><br />
             <%= f.text_field :last_name, autofocus: true, placeholder: "例)長野", class: "form-control" %>
