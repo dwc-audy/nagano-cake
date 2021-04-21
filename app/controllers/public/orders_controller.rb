@@ -10,16 +10,6 @@ class Public::OrdersController < ApplicationController
     @address = Address.new
   end
 
-  def create
-    @order = Order.new(order_params)
-    if params[:back]
-      render :new
-    else @order.save!
-      redirect_to orders_complete_path
-    end
-
-  end
-
   def index
     @orders = current_customer.orders
   end
@@ -40,19 +30,26 @@ class Public::OrdersController < ApplicationController
 
     elsif params[:order][:address_number]=="2"
       @order.postal_code = Address.find(params[:order][:address_id]).postal_code
-      @order.address = Address.find(params[:order][:address_id]).address 
-      @order.name = Address.find(params[:order][:address_id]).name 
+      @order.address = Address.find(params[:order][:address_id]).address
+      @order.name = Address.find(params[:order][:address_id]).name
 
     elsif params[:order][:address_number]=="3"
-      @order.address = params[:order][:address]
-      @order.name = params[:order][:name]
-      @order.postal_code = params[:order][:postal_code]
-      @order.customer_id = current_customer.id
+      if params[:order][:address] != "" && params[:order][:name] != "" && params[:order][:postal_code] != ""
+        @order.address = params[:order][:address]
+        @order.name = params[:order][:name]
+        @order.postal_code = params[:order][:postal_code]
+        @order.customer_id = current_customer.id
+      else
+        flash[:alert] = "空欄はダメだよ"
+        redirect_to new_order_path
+      end
     end
 
     @cart_items = CartItem.where(customer_id: current_customer.id)
     @sum = 0
   end
+
+
 
   def create
     @order = Order.new(order_params)

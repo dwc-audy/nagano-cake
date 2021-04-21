@@ -1,3 +1,4 @@
+<% provide(:title, "注文情報入力") %>
 <div class="container mt-5">
   <h4>・注文情報入力</h4>
   <%= form_with(model: @order, local: true, url: orders_confirm_path, method: :post) do |f| %>
@@ -11,6 +12,7 @@
         </table>
       </div>
     </div>
+    
 
     <h4>・配送先の選択</h4>
     <div class="col-md-10">
@@ -42,6 +44,11 @@
       </div>
       <div class="row">
         <table class="table table-bordered">
+          <% if flash[:alert] %>
+            <div class="flash h5 mt-3 text-danger">
+              <%= flash[:alert] %>
+            </div>
+          <% end %>
           <tr>
             <th>
               <%= f.radio_button :address_number,3,checked: "checked" %>新しい住所

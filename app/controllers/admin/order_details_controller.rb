@@ -8,8 +8,10 @@ class Admin::OrderDetailsController < ApplicationController
     
     if @order_detail.making_status == "製作中"
       @order.update(status: 2)
+      flash[:success1] = "製作中に更新しました"
     elsif @order.order_details.count == @order.order_details.where(making_status: "製作完了").count
       @order.update(status: 3)
+      flash[:success2] = "製作完了に更新しました"
     end
     redirect_to admin_order_path(@order)
   end
