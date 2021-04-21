@@ -1,4 +1,9 @@
+<% provide(:title, "注文情報確認") %>
+
 <div class="container">
+  
+  
+
     <%= form_with(model: @order, local: true, url: orders_path) do |f| %>
     <div class="row">
       <div class="col-md-12">

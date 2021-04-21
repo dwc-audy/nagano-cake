@@ -1,4 +1,5 @@
-<div class="container">
+<% provide(:title, "管理者 注文履歴詳細") %>
+<div class="container  mt-5">
   <h5>注文詳細</h5>
   <div class="row">
     <div class="col-md-5">
@@ -14,6 +15,7 @@
       </table>
     </div>
     <div class="col-md-7">
+    <%= flash[:alert] %>
       <table class="table table-bordered">
         <tr>
           <th>支払い方法</th>
@@ -37,6 +39,8 @@
   </div>
 
   <h5>注文商品</h5>
+  <%= flash[:success1] %>
+  <%= flash[:success2] %>
   <div class="row">
     <div class="col-md-10">
       <table class="table table-bordered">
