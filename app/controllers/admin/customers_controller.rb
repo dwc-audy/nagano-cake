@@ -26,7 +26,7 @@ class Admin::CustomersController < ApplicationController
     @value = params[:value]
     @column = params[:column]
     @how = params[:how]
-    Customer.search_for(@value, @column, @how)
+    @customers = Customer.search_for(@value, @column, @how)
     render 'index'
   end
 
