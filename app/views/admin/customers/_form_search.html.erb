@@ -1,0 +1,9 @@
+<%= form_with url: admin_customers_search_path, method: :post, local: true do |f| %>
+    <%= f.text_field :value %>
+    <%= f.select :column, options_for_select(" 名前(姓)": "last_name", "名前(名)": "first_name") %>
+    <%= f.select :how, options_for_select( "完全一致": "match",
+                                                    "前方一致": "forward",
+                                                    "後方一致": "backward",
+                                                    "部分一致": "partical") %>
+    <%= f.submit "検索" %>
+  <% end %>
