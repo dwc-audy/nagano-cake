@@ -1,24 +1,30 @@
 <%= form_with model: address, local: true do |f| %>
   <div class="form-group">
-    <%= f.label :postal_code, "郵便番号(ハイフン不要):" %><br />
-    <%= f.text_field :postal_code, autofocus: true, placeholder: "例)3810000", class: "form-control" %>
+    <%= f.label :postal_code, "郵便番号(ハイフン不要):" %> <span class="badge badge-danger">必須</span><br />
+    <%= f.text_field :postal_code, autofocus: true, placeholder: "例)3810000",
+                      class: "form-control #{"is-invalid" if address.errors.include?(:postal_code)}" %>
+    <%= render 'shared/errors', obj: address, column: :postal_code %>
   </div>
 
   <div class="form-group">
-    <%= f.label :address, "住所(部屋番号まで)" %><br />
-    <%= f.text_field :address, autofocus: true, placeholder: "例)長野県長野市〇-〇-〇", class: "form-control"  %>
+    <%= f.label :address, "住所(部屋番号まで)" %> <span class="badge badge-danger">必須</span><br />
+    <%= f.text_field :address, autofocus: true, placeholder: "例)長野県長野市〇-〇-〇",
+                      class: "form-control #{"is-invalid" if address.errors.include?(:address)}" %>
+    <%= render 'shared/errors', obj: address, column: :address %>
   </div>
 
   <div class="form-group">
-    <%= f.label :name, "宛先:" %><br />
-    <%= f.text_field :name, autofocus: true, autofocus: true, placeholder: "例)長野花子", class: "form-control"  %>
+    <%= f.label :name, "宛先:" %> <span class="badge badge-danger">必須</span><br />
+    <%= f.text_field :name, autofocus: true, autofocus: true, placeholder: "例)長野花子",
+                      class: "form-control #{"is-invalid" if address.errors.include?(:name)}" %>
+    <%= render 'shared/errors', obj: address, column: :name %>
   </div>
 
   <div class="actions">
     <% if action_name == "edit" %>
-      <%= f.submit "変更保存", class: "btn btn-success btn-block" %>
+      <%= f.submit "変更保存", class: "btn btn-success" %>
     <% else %>
-      <%= f.submit "新規登録", class: "btn btn-success btn-block" %>
+      <%= f.submit "新規登録", class: "btn btn-success" %>
     <% end %>
   </div>
 <% end %>

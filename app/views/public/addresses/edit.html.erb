@@ -5,7 +5,11 @@
   <div class="row">
     <div class="col-md-12">
       <div class="col-md-5 mx-auto">
-        <%= render 'layouts/errors', obj: @address %>
+        <% if @address.errors.any? %>
+            <div id="error_explanation">
+              <h3>入力内容を確認して下さい</h3>
+            </div>
+          <% end %>
         <%= render 'public/addresses/form', address: @address %>
       </div>
     </div>
