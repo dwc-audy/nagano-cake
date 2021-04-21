@@ -1,4 +1,4 @@
-<<div class="container">
+<div class="container">
   <div class="row mt-4 mb-4">
     <h4>会員詳細</h4>
   </div>
@@ -6,7 +6,7 @@
     <div class="col-md-4">
       <%= render 'shared/customer_show', customer: @customer %>
       <%= link_to "編集", edit_admin_customer_path(@customer.id), class: "btn btn-success" %>
-      <%= link_to "注文履歴一覧", admin_root_path, class: "btn btn-info" %>
+      <%= link_to "注文履歴一覧", search_admin_homes_path(@customer.id), class: "btn btn-info" %>
     </div>
   </div>
 </div>

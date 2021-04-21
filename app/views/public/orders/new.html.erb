@@ -1,8 +1,8 @@
-<div class="container">
-  <h4>注文情報入力</h4>
+<div class="container mt-5">
+  <h4>・注文情報入力</h4>
   <%= form_with(model: @order, local: true, url: orders_confirm_path, method: :post) do |f| %>
-    <div class="row">
-      <div class="col-md-8">
+    <div class="row mb-3">
+      <div class="col-md-4">
         <table class="table table-bordered">
           <tr>
             <th>支払い方法</th>
@@ -11,41 +11,69 @@
         </table>
       </div>
     </div>
-    
-    <div class="col-md-8">
-      <h4>配送先の選択</h4>
-      
-      <div class="border">
-      　<label><%= f.radio_button :address_number,1,checked: "checked" %> あなたの住所 </label><br>
-      　<%= current_customer.last_name %><br>
-      　<%= current_customer.first_name %><br>
-      　<%= current_customer.postal_code %><br>
-      　<%= current_customer.address %>
-    　</div>
-    　
-    　<div class="border">
-      　<label><%= f.radio_button :address_number,2,checked: "checked" %> 登録されている住所 </label>
-    　</div>
-    　
-    　<div class="border">
-    　　<label><%= f.radio_button :address_number,3,checked: "checked" %>新しい住所</label>
-    　　
-        <div class="form-group">
-          <%= f.label :配送先宛名 %><br>
-          <%= f.text_field :name, class:"form-control" %>
-        </div>
-  
-        <div class="form-group">
-          <%= f.label :配送先郵便番号 %><br>
-          <%= f.text_field :postal_code, class:"form-control" %>
-        </div>
-  
-        <div class="form-group">
-          <%= f.label :配送先住所 %><br>
-          <%= f.text_area :address, class:"form-control" %>
-        </div>
-        
-    　</div>
+
+    <h4>・配送先の選択</h4>
+    <div class="col-md-10">
+      <div class="row mb-4">
+        <table class="table table-bordered">
+          <tr>
+            <th>
+              <%= f.radio_button :address_number,1,checked: "checked" %> あなたの住所
+            </th>
+            <td>
+              <%= current_customer.last_name %><%= current_customer.first_name %>
+            　<%= current_customer.postal_code %>
+            　<%= current_customer.address %>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="row mb-4">
+        <table class="table table-bordered">
+          <tr>
+            <th>
+              <%= f.radio_button :address_number,2,checked: "checked" %> 登録されている住所
+            </th>
+            <td>
+              <%= f.collection_select :address_id, Address.all, :id, :address %>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="row">
+        <table class="table table-bordered">
+          <tr>
+            <th>
+              <%= f.radio_button :address_number,3,checked: "checked" %>新しい住所
+            </th>
+          </tr>
+          <tr>
+            <th>
+              <%= f.label :配送先宛名 %>
+            </th>
+            <td>
+              <%= f.text_field :name, class:"form-control" %>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              <%= f.label :配送先郵便番号 %>
+            </th>
+            <td>
+              <%= f.text_field :postal_code, class:"form-control" %>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              <%= f.label :配送先住所 %>
+            </th>
+            <td>
+              <%= f.text_field :address, class:"form-control" %>
+            </td>
+          </tr>
+          
+        </table>
+      </div>
     </div>
    <%= f.submit "確認画面へ進む", class:"btn btn-success" %>
   <% end %>
