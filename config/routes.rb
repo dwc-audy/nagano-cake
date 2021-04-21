@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   scope module: :public do
     root :to => 'homes#top'
     get '/about' => 'homes#about'
-    resources :items, only: [:index, :show] do 
+    resources :items, only: [:index, :show] do
       collection do
         get 'search'
       end
@@ -46,6 +46,7 @@ Rails.application.routes.draw do
     resources :items, only: [:new, :index, :create, :show, :edit, :update]
     resources :genres, only: [:index, :create, :edit, :update]
     resources :customers, only: [:index, :show, :edit, :update]
+    post 'customers/search'
     resources :order_details, only: [:update]
     resources :orders, only: [:show, :update]
   end
