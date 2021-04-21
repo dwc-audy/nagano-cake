@@ -1,7 +1,9 @@
 class Public::OrdersController < ApplicationController
-  
+  before_action :authenticate_customer!
+
+
   layout 'public'
-  
+
   def new
     @order = Order.new
     @customer = current_customer
@@ -58,18 +60,18 @@ class Public::OrdersController < ApplicationController
     @order.save!
 
     @cart_items = CartItem.where(customer_id: current_customer.id)
-    
-    @cart_items.each do |cart_item| 
+
+    @cart_items.each do |cart_item|
       @order_details = OrderDetail.new
-      @order_details.item_id = cart_item.item_id 
-      @order_details.amount = cart_item.amount 
-      @order_details.price = (cart_item.item.price*1.1).floor 
-      @order_details.order_id = @order.id 
-      @order_details.save 
+      @order_details.item_id = cart_item.item_id
+      @order_details.amount = cart_item.amount
+      @order_details.price = (cart_item.item.price*1.1).floor
+      @order_details.order_id = @order.id
+      @order_details.save
     end
-    
+
     @cart_items.destroy_all
-    redirect_to orders_complete_path 
+    redirect_to orders_complete_path
 
   end
 
