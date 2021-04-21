@@ -1,7 +1,0 @@
-<% if resource.errors.include?(column) %>
-  <ul>
-    <% resource.errors.full_messages_for(column).each do |message| %>
-      <li class="text-danger small"><%= message %></li>
-    <% end %>
-  </ul>
-<% end %>
