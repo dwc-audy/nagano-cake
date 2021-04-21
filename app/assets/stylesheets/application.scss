@@ -26,7 +26,6 @@
   transform: translateY(-0.1875em);
 }
 .tab {
-  font-family: 'Londrina Shadow', cursive;
   cursor: pointer;
   transition: all 0.3s ease 0s;
 }
@@ -40,6 +39,9 @@
 .item-img:hover {
   cursor: pointer;
   transform: scale(1.1, 1.1);
+}
+.kaminari {
+  text-decoration: none;
 }
 .footer {
   font-family: 'Londrina Shadow', cursive;

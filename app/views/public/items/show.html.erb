@@ -1,12 +1,8 @@
 <% provide(:title, "商品詳細") %>
 <div class="container">
 
-<div class="text-danger">
-  <% if flash[:alert] %>
-    <div class="flash h5 mt-3">
-      <%= flash[:alert] %>
-    </div>
-  <% end %>
+<div class="text-danger flash h5 mt-3">
+  <%= flash[:alert] %>
 </div>
 
   <div class="row mt-4 pt-4">
