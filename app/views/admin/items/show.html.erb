@@ -1,3 +1,4 @@
+<% provide(:title, "管理者 商品詳細") %>
 <div class="container">
   <div class="row mb-5 mt-4">
     <div class="col-md-12"></div>
@@ -17,7 +18,8 @@
     </div>
 
     <div class="col-md-4">
-      <p class="mb-2"><%= @item.name %></p><br />
+
+      <%= @item.name %></p><br />
       <p class="mb-2"><%= @item.introduction %></p><br />
       <p class="mb-2"><%= @item.genre.name %></p><br />
       <p class="mb-2"><%= @tax_price.to_s(:delimited) %>(<%= @item.price.to_s(:delimited) %>)円</p><br />

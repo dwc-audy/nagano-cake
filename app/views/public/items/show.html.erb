@@ -1,3 +1,4 @@
+<% provide(:title, "商品詳細") %>
 <div class="container">
 
 <div class="text-danger">
@@ -10,7 +11,7 @@
 
   <div class="row mt-4 pt-4">
     <div class="col-md-5">
-      <%= attachment_image_tag @item, :image, size: "250x250" %>
+      <%= attachment_image_tag @item, :image, size: "280x280", class: "rounded-circle" %>
     </div>
 
     <div class="col-md-5">
