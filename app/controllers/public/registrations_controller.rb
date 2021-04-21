@@ -12,9 +12,13 @@ class Public::RegistrationsController < Devise::RegistrationsController
   # end
 
   # POST /resource
-  # def create
-  #   super
-  # end
+  def create
+    super
+    Address.create(customer_id: @customer.id,
+                  postal_code: @customer.postal_code,
+                  address: @customer.address,
+                  name: "#{@customer.last_name} #{@customer.first_name}")
+  end
 
   # GET /resource/edit
   # def edit
