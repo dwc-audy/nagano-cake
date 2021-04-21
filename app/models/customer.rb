@@ -18,5 +18,18 @@ class Customer < ApplicationRecord
   validates :postal_code, presence: true, format: { with: /\A\d{7}\z/i}
   validates :address, presence: true
   validates :telephone_number, presence: true, format: { with: /\A\d{10,11}\z/i}
+
+  def self.search_for(value, column, how)
+		if how == "match"
+			Customer.where("#{column}": value)
+		elsif how == "forward"
+			Customer.where("#{column} LIKE ?", "#{value}%")
+		elsif how == "backward"
+			Customer.where("#{column} LIKE ?", "%#{value}")
+		elsif how == "partical"
+			Customer.where("#{column} LIKE ?", "%#{value}%")
+		end
+	end
+
 end
 
