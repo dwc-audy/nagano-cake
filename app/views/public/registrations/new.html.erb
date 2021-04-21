@@ -7,57 +7,87 @@
   <div class="row">
     <div class="col-md-12">
       <%= form_for resource, as: resource_name, url: registration_path(resource_name) do |f| %>
-        <div class="col-md-5 mx-auto">
-          <%= render 'layouts/errors', obj: resource %>
+        <div class="col-md-8 mx-auto">
+          <% if resource.errors.any? %>
+            <div id="error_explanation">
+              <h3>入力内容を確認して下さい</h3>
+            </div>
+          <% end %>
 
-          <div class="form-group">
-            <%= f.label :last_name, "名前(姓):" %><br />
-            <%= f.text_field :last_name, autofocus: true, placeholder: "例)長野", class: "form-control" %>
+          <div class="form-row">
+            <div class="form-group col">
+              <%= f.label :last_name %> <span class="badge badge-danger">必須</span><br />
+              <%= f.text_field :last_name, autofocus: true, placeholder: "例)長野",
+                                class: "form-control #{"is-invalid" if resource.errors.include?(:last_name)}" %>
+              <%= render 'shared/errors', obj: resource, column: :last_name %>
+            </div>
+            <div class="form-group col">
+              <%= f.label :first_name %> <span class="badge badge-danger">必須</span><br />
+              <%= f.text_field :first_name, autofocus: true, placeholder: "例)花子",
+                                class: "form-control #{"is-invalid" if resource.errors.include?(:first_name)}" %>
+              <%= render 'shared/errors', obj: resource, column: :first_name %>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col">
+              <%= f.label :last_name_kana %> <span class="badge badge-danger">必須</span><br />
+              <%= f.text_field :last_name_kana, autofocus: true, placeholder: "例)ナガノ",
+                                class: "form-control #{"is-invalid" if resource.errors.include?(:last_name_kana)}" %>
+              <%= render 'shared/errors', obj: resource, column: :last_name_kana %>
+            </div>
+
+            <div class="form-group col">
+              <%= f.label :first_name_kana %> <span class="badge badge-danger">必須</span><br />
+              <%= f.text_field :first_name_kana, autofocus: true, placeholder: "例)ハナコ",
+                                class: "form-control #{"is-invalid" if resource.errors.include?(:first_name_kana)}" %>
+              <%= render 'shared/errors', obj: resource, column: :first_name_kana %>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-4">
+              <%= f.label :postal_code, "郵便番号(ハイフン不要)" %> <span class="badge badge-danger">必須</span><br />
+              <%= f.text_field :postal_code, autofocus: true, placeholder: "例)3810000",
+                                class: "form-control #{"is-invalid" if resource.errors.include?(:postal_code)}" %>
+              <%= render 'shared/errors', obj: resource, column: :postal_code %>
+            </div>
+            <div class="form-group col-8">
+              <%= f.label :address, "住所(部屋番号まで)" %><span class="badge badge-danger"> 必須</span><br />
+              <%= f.text_field :address, autofocus: true, placeholder: "例)長野県長野市〇-〇-〇",
+                                class: "form-control #{"is-invalid" if resource.errors.include?(:address)}" %>
+              <%= render 'shared/errors', obj: resource, column: :address %>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col">
+              <%= f.label :telephone_number, "電話番号(ハイフン不要)" %> <span class="badge badge-danger">必須</span><br />
+              <%= f.text_field :telephone_number, autofocus: true, placeholder: "例)09000000000",
+                                class: "form-control #{"is-invalid" if resource.errors.include?(:telephone_number)}" %>
+              <%= render 'shared/errors', obj: resource, column: :telephone_number %>
+            </div>
+            <div class="form-group col">
+              <%= f.label :email, "メールアドレス(ログイン時に必要)" %> <span class="badge badge-danger">必須</span><br />
+              <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "例)nagano@cake.jp",
+                                class: "form-control #{"is-invalid" if resource.errors.include?(:email)}" %>
+              <%= render 'shared/errors', obj: resource, column: :email %>
+            </div>
           </div>
 
           <div class="form-group">
-            <%= f.label :first_name, "名前(名):" %><br />
-            <%= f.text_field :first_name, autofocus: true, placeholder: "例)花子", class: "form-control" %>
+            <%= f.label :password, "パスワード(6文字以上)" %> <span class="badge badge-danger">必須</span><br />
+            <%= f.password_field :password, autocomplete: "new-password", placeholder: "パスワードを入力して下さい",
+                              class: "form-control #{"is-invalid" if resource.errors.include?(:password)}" %>
+          <%= render 'shared/errors', obj: resource, column: :password %>
           </div>
 
           <div class="form-group">
-            <%= f.label :last_name_kana, "名前(セイ):" %><br />
-            <%= f.text_field :last_name_kana, autofocus: true, placeholder: "例)ナガノ", class: "form-control" %>
-          </div>
-
-          <div class="form-group">
-            <%= f.label :first_name_kana, "名前(メイ):" %><br />
-            <%= f.text_field :first_name_kana, autofocus: true, placeholder: "例)ハナコ", class: "form-control" %>
-          </div>
-
-          <div class="form-group">
-            <%= f.label :postal_code, "郵便番号(ハイフン不要):" %><br />
-            <%= f.text_field :postal_code, autofocus: true, placeholder: "例)3810000", class: "form-control" %>
-          </div>
-
-          <div class="form-group">
-            <%= f.label :address, "住所(部屋番号まで):" %><br />
-            <%= f.text_field :address, autofocus: true, placeholder: "例)長野県長野市〇-〇-〇", class: "form-control" %>
-          </div>
-
-          <div class="form-group">
-            <%= f.label :telephone_number, "電話番号(ハイフン不要):" %><br />
-            <%= f.text_field :telephone_number, autofocus: true, placeholder: "例)09000000000", class: "form-control" %>
-          </div>
-
-          <div class="form-group">
-            <%= f.label :email, "メールアドレス:" %><br />
-            <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "例)nagano@cake.jp", class: "form-control" %>
-          </div>
-
-          <div class="form-group">
-            <%= f.label :password, "パスワード(6文字以上):" %><br />
-            <%= f.password_field :password, autocomplete: "new-password", placeholder: "パスワードを入力して下さい", class: "form-control" %>
-          </div>
-
-          <div class="form-group">
-            <%= f.label :password_confirmation, "パスワード(確認):" %><br />
-            <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "パスワードを入力して下さい", class: "form-control" %>
+            <%= f.label :password_confirmation, "パスワード(確認)" %> <span class="badge badge-danger">必須</span><br />
+            <%= f.password_field :password_confirmation, autocomplete: "new-password",
+                              placeholder: "パスワードを入力して下さい",
+                              class: "form-control #{"is-invalid" if resource.errors.include?(:password_confirmation)}" %>
+            <%= render 'shared/errors', obj: resource, column: :password_confirmation %>
           </div>
 
           <div class="form-group">
