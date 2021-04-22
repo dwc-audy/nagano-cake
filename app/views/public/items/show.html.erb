@@ -11,9 +11,9 @@
     </div>
 
     <div class="col-md-5">
-      <h4 class="mb-4 mt-2"><strong><%= @item.name %></strong></h4>
-      <p class="mb-4"><%= @item.introduction %></p>
-      <p class="mb-4">¥<%= ((@item.price * 1.1).floor).to_s(:delimited) %><small>(税込)</small></p>
+      <h4 class="mb-4 mt-2 font"><strong><%= @item.name %></strong></h4>
+      <p class="mb-4 font"><%= @item.introduction %></p>
+      <p class="mb-4 font">¥<%= ((@item.price * 1.1).floor).to_s(:delimited) %><small>(税込)</small></p>
 
 
       <%= form_with model: @cart_items, url: cart_items_path, local: true do |f| %>
