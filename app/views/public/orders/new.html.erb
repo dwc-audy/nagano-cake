@@ -8,7 +8,7 @@
   　　　　<%= f.select :payment_method, options_for_select(Order.payment_methods.keys), {include_blank: true},class: 'selectpicker form-control'  %></td>
       </div>
     </div>
-  
+
   <h5>配送先の選択</h5>
   <div class="col-8">
     <table class="table">
@@ -18,7 +18,7 @@
           <th><%= f.radio_button :address_number,2,checked: "checked", id: 'button2' %> 登録されている住所</th>
           <th><%= f.radio_button :address_number,3,checked: "checked", id: 'button3' %>新しい住所</th>
         </tr>
-        
+
       </thead>
     </table>
     <div>
