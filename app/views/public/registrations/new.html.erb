@@ -96,7 +96,10 @@
           </div>
         <% end %>
 
-        <%= link_to "ログイン", new_session_path(resource_name) %>
+        <p class="h5 mt-4">既に登録済みの方</p>
+        <p>
+          <%= link_to "こちら", new_session_path(resource_name) %> からログインして下さい。
+        </p>
       </div>
     </div>
   </div>
