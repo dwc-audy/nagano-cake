@@ -1,87 +1,89 @@
 <% provide(:title, "注文情報入力") %>
 <div class="container mt-5">
-  <h4>・注文情報入力</h4>
+  <h5>支払い方法</h5>
   <%= form_with(model: @order, local: true, url: orders_confirm_path, method: :post) do |f| %>
-    <div class="row mb-3">
+    <div class="row mb-5">
       <div class="col-md-4">
-        <table class="table table-bordered">
-          <tr>
-            <th>支払い方法</th>
-            <td><%= f.select :payment_method, options_for_select(Order.payment_methods.keys)  %></td>
-          </tr>
-        </table>
+        <span>＊お選びください＊</span>
+  　　　　<%= f.select :payment_method, options_for_select(Order.payment_methods.keys), {include_blank: true},class: 'selectpicker form-control'  %></td>
       </div>
     </div>
-    
+  
+  <h5>配送先の選択</h5>
+  <div class="col-8">
+    <table class="table">
+      <thead>
+        <tr>
+          <th><%= f.radio_button :address_number,1,checked: "checked", id: 'button1' %> あなたの住所</th>
+          <th><%= f.radio_button :address_number,2,checked: "checked", id: 'button2' %> 登録されている住所</th>
+          <th><%= f.radio_button :address_number,3,checked: "checked", id: 'button3' %>新しい住所</th>
+        </tr>
+        
+      </thead>
+    </table>
+    <div>
+      <p id="p1">
+        <%= current_customer.last_name %><%= current_customer.first_name %>
+      　<%= current_customer.postal_code %>
+      　<%= current_customer.address %>
+      </p>
+      <p id="p2">
+        <span>＊登録されている中からお選びください＊</span><br>
+        <%= f.collection_select :address_id, Address.all, :id, :address, {include_blank: true}, class: 'selectpicker form-control'  %>
+      </p>
+      <p id="p3">
+        <% if flash[:alert] %>
+          <div class="flash h5 mt-3 text-danger">
+            <%= flash[:alert] %>
+          </div>
+        <% end %>
+        <span>＊ご記入下さい＊</span><br>
 
-    <h4>・配送先の選択</h4>
-    <div class="col-md-10">
-      <div class="row mb-4">
-        <table class="table table-bordered">
-          <tr>
-            <th>
-              <%= f.radio_button :address_number,1,checked: "checked" %> あなたの住所
-            </th>
-            <td>
-              <%= current_customer.last_name %><%= current_customer.first_name %>
-            　<%= current_customer.postal_code %>
-            　<%= current_customer.address %>
-            </td>
-          </tr>
-        </table>
-      </div>
-      <div class="row mb-4">
-        <table class="table table-bordered">
-          <tr>
-            <th>
-              <%= f.radio_button :address_number,2,checked: "checked" %> 登録されている住所
-            </th>
-            <td>
-              <%= f.collection_select :address_id, Address.all, :id, :address %>
-            </td>
-          </tr>
-        </table>
-      </div>
-      <div class="row">
-        <table class="table table-bordered">
-          <% if flash[:alert] %>
-            <div class="flash h5 mt-3 text-danger">
-              <%= flash[:alert] %>
-            </div>
-          <% end %>
-          <tr>
-            <th>
-              <%= f.radio_button :address_number,3,checked: "checked" %>新しい住所
-            </th>
-          </tr>
-          <tr>
-            <th>
-              <%= f.label :配送先宛名 %>
-            </th>
-            <td>
-              <%= f.text_field :name, class:"form-control" %>
-            </td>
-          </tr>
-          <tr>
-            <th>
-              <%= f.label :配送先郵便番号 %>
-            </th>
-            <td>
-              <%= f.text_field :postal_code, class:"form-control" %>
-            </td>
-          </tr>
-          <tr>
-            <th>
-              <%= f.label :配送先住所 %>
-            </th>
-            <td>
-              <%= f.text_field :address, class:"form-control" %>
-            </td>
-          </tr>
-          
-        </table>
-      </div>
+        <%= f.label :配送先宛名 %>
+        <%= f.text_field :name, class:"form-control" %>
+        <%= f.label :配送先郵便番号 %>
+        <%= f.text_field :postal_code, class:"form-control" %>
+        <%= f.label :配送先住所 %>
+        <%= f.text_field :address, class:"form-control" %>
+      </p>
     </div>
+  </div>
+
    <%= f.submit "確認画面へ進む", class:"btn btn-success" %>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+
+	// 初期表示を非表示にする
+	$('#p1').hide();
+	$('#p2').hide();
+	$('#p3').hide();
+
+
+	$("#button1").click(function() {
+		// 表示する
+		$("#p1").show();
+		$("#p2").hide();
+		$("#p3").hide();
+	});
+
+	$("#button2").click(function() {
+		// 非表示にする
+		$("#p1").hide();
+		$("#p3").hide();
+		$("#p2").show();
+	});
+
+	$("#button3").click(function() {
+		// 非表示にする
+		$("#p1").hide();
+		$("#p2").hide();
+		$("#p3").show();
+	});
+</script>
+
+    </div>
   <% end %>
 </div>
