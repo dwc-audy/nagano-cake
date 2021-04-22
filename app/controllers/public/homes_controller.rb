@@ -11,5 +11,6 @@ class Public::HomesController < ApplicationController
 
 
   def about
+    @items = Item.all
   end
 end

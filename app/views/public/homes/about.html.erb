@@ -1,8 +1,21 @@
 <% provide(:title, "アバウトページ") %>
-<div style = "text-align: center">
-	<h1 style>長野県にある小さな洋菓子店「ながのCAKE」</h1>
-	
-	<p>昨年始めたInstagramからお客様が増え<br>
-	全国から注文が来るようになりましたので通販サイトを作らせて頂きました。</p>
-	〒111-1111 長野県長野市
+<div class="about-img">
+	<div class="about-content mx-auto" style="text-align: center">
+		<h1>長野県にある小さな洋菓子店「ながのCAKE」</h1>
+
+		<p>ながのCAKEは全国発送可能なケーキ屋さんです<br>
+		   お子様からお年寄りの方までお召しいただけるよう、<br />
+		   さまざまなバリエーションをご用意しております。<br />
+		   また、全国へ発送可能ですので「いつ」でも「どこ」でもご注文いただけます。<br />
+		   ぜひご注文ください。</p>
+		<a class="owner" href="https://www.google.com/maps/place/%E3%80%92381-3204+%E9%95%B7%E9%87%8E%E7%9C%8C%E9%95%B7%E9%87%8E%E5%B8%82%E4%B8%AD%E6%9D%A1%E5%BE%A1%E5%B1%B1%E9%87%8C/@36.6394711,138.0009008,14z/data=!3m1!4b1!4m5!3m4!1s0x5ff7d5999cbc30c5:0xc2fbe38def024fdd!8m2!3d36.6404897!4d138.0218061">〒380-3204 長野県長野市 中条御山里 ながのCAKE</a> <br />
+	</div>
 </div>
+
+<ul class="bxslider">
+	<% @items.each do |item| %>
+	  <li>
+	  	<%= link_to item_path(item.id) do %><% attachment_image_tag item, :image, size: "150x150" %><% end %>
+	  </li>
+	<% end %>
+</ul>
