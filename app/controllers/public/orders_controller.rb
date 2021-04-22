@@ -55,6 +55,13 @@ class Public::OrdersController < ApplicationController
     @order = Order.new(order_params)
     @order.customer_id = current_customer.id
     @order.save!
+    
+    @address = Address.new()
+    @address.address = params[:order][:address]
+    @address.name = params[:order][:name] 
+    @address.postal_code = params[:order][:postal_code]
+    @address.customer_id = current_customer.id 
+    @address.save!
 
     @cart_items = CartItem.where(customer_id: current_customer.id)
 
