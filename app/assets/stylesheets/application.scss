@@ -26,6 +26,7 @@
   transform: translateY(-0.1875em);
 }
 .tab {
+  font-family: "Sawarabi Gothic";
   cursor: pointer;
   transition: all 0.3s ease 0s;
 }
@@ -39,6 +40,9 @@
 .item-img:hover {
   cursor: pointer;
   transform: scale(1.1, 1.1);
+}
+.item-index {
+  font-family: "Sawarabi Gothic";
 }
 .kaminari {
   text-decoration: none;
