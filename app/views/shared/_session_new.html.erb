@@ -6,28 +6,38 @@
   </div>
   <div class="row">
     <div class="col-md-12">
+      <div class="col-md-6 mx-auto">
+        <p class="h5 mt-4">会員の方はこちらからログイン</p>
+      </div>
       <%= form_with model: resource, as: resource_name, url: session_path(resource_name) do |f| %>
         <div class="col-md-5 mx-auto">
           <div class="form-group">
-            <%= f.label :email, "メールアドレス:" %><br />
+            <%= f.label :email, "メールアドレス" %><br />
             <%= f.email_field :email, autofocus: true, autocomplete: "email",
                               placeholder: "メールアドレスを入力して下さい",
                               class: "form-control" %>
           </div>
           <div class="form-group">
-            <%= f.label :password, "パスワード(6文字以上):" %><br />
+            <%= f.label :password, "パスワード(6文字以上)" %><br />
             <%= f.password_field :password, autocomplete: "current-password",
                               placeholder: "パスワードを入力して下さい",
                               class: "form-control" %>
           </div>
-          <div class="actions">
-            <%= f.submit "ログイン", class: "btn btn-success" %>
+          <div class="form-group">
+            <%= f.submit "ログイン", class: "btn btn-primary" %>
           </div>
           <% if title == "会員ログイン" %>
-            <%= link_to "新規登録", new_registration_path(resource_name) %>
           <% end %>
         </div>
       <% end %>
+    </div>
+    <div class="col-md-12">
+      <div class="col-md-6 mx-auto">
+        <p class="h5 mt-4">会員登録がお済みでない方</p>
+      </div>
+      <div class="col-md-5 mx-auto">
+        <%= link_to "こちら", new_registration_path(resource_name) %> から新規登録を行って下さい。
+      </div>
     </div>
   </div>
 </div>
