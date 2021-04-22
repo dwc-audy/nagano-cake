@@ -22,28 +22,50 @@ class Public::OrdersController < ApplicationController
 
   def confirm
     @order = Order.new(order_params)
-
-    if params[:order][:address_number]=="1"
-      @order.postal_code = current_customer.postal_code
-      @order.address = current_customer.address
-      @order.name = current_customer.last_name + current_customer.first_name
-
-    elsif params[:order][:address_number]=="2"
-      @order.postal_code = Address.find(params[:order][:address_id]).postal_code
-      @order.address = Address.find(params[:order][:address_id]).address
-      @order.name = Address.find(params[:order][:address_id]).name
-
-    elsif params[:order][:address_number]=="3"
-      if params[:order][:address] != "" && params[:order][:name] != "" && params[:order][:postal_code] != ""
-        @order.address = params[:order][:address]
-        @order.name = params[:order][:name]
-        @order.postal_code = params[:order][:postal_code]
-        @order.customer_id = current_customer.id
-      else
-        flash[:alert] = "空欄はダメだよ"
-        redirect_to new_order_path
+  
+      
+      if params[:order][:address_number]=="1"
+        
+        if params[:order][:payment_method] != ""
+          @order.postal_code = current_customer.postal_code
+          @order.address = current_customer.address
+          @order.name = current_customer.last_name + current_customer.first_name
+        else
+          flash[:ale] = "空欄はダメだよ"
+          redirect_to new_order_path
+        end
+  
+      elsif params[:order][:address_number]=="2"
+        
+        if params[:order][:payment_method] != ""
+          @order.postal_code = Address.find(params[:order][:address_id]).postal_code
+          @order.address = Address.find(params[:order][:address_id]).address
+          @order.name = Address.find(params[:order][:address_id]).name
+        else
+          flash[:ale] = "空欄はダメだよ"
+          redirect_to new_order_path
+        end
+        
+      elsif params[:order][:address_number]=="3"
+        
+        if params[:order][:payment_method] != ""
+          
+          if params[:order][:address] != "" && params[:order][:name] != "" && params[:order][:postal_code] != ""
+            @order.address = params[:order][:address]
+            @order.name = params[:order][:name]
+            @order.postal_code = params[:order][:postal_code]
+            @order.customer_id = current_customer.id
+          else
+            flash[:alert] = "空欄はダメだよ"
+            redirect_to new_order_path
+          end
+          
+        else
+          flash[:ale] = "空欄はダメだよ"
+          redirect_to new_order_path
+        end
+      
       end
-    end
 
     @cart_items = CartItem.where(customer_id: current_customer.id)
     @sum = 0
