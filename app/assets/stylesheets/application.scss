@@ -14,3 +14,39 @@
  *= require_self
  */
  @import "bootstrap";
+
+.head {
+  font-family: 'Londrina Shadow', cursive;
+  font-size: 40px;
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+}
+.head:hover {
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.25);
+  transform: translateY(-0.1875em);
+}
+.tab {
+  font-family: "Sawarabi Gothic";
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+}
+.tab:hover {
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.25);
+  transform: translateY(-0.1875em);
+}
+.item-img {
+  transition: all 0.6s ease 0s;
+}
+.item-img:hover {
+  cursor: pointer;
+  transform: scale(1.1, 1.1);
+}
+.item-index {
+  font-family: "Sawarabi Gothic";
+}
+.kaminari {
+  text-decoration: none;
+}
+.footer {
+  font-family: 'Londrina Shadow', cursive;
+}

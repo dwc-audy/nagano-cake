@@ -1,3 +1,4 @@
+<% provide(:title, "管理者 商品一覧") %>
 <div class="container">
 
   <div class="row">
@@ -7,14 +8,14 @@
     </div>
 
     <div class="col-md-1">
-      <%= link_to new_admin_item_path,class: "align-middle", style: "text-decoration: none;" do %>➕<% end %>
+      <%= link_to new_admin_item_path, class: "btn btn-block align-middle mt-4 bg-light text-center rounded-pill tab", style: "text-decoration: none;" do %>➕<% end %>
     </div>
 
   </div>
 
   <div class="row">
     <div class="col-md-12">
-      <table class="table">
+      <table class="table table-hover mb-3">
 
         <thead>
           <tr>
