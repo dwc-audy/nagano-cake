@@ -1,4 +1,10 @@
 <table class="table table-bordered">
+  <% if admin_signed_in? %>
+    <tr>
+      <th class="table-light">会員ID</th>
+      <td><%= customer.id %></td>
+    </tr>
+  <% end %>
   <tr>
     <th class="table-light">名前</th>
     <td><%= customer.last_name %> <%= customer.first_name %></td>
@@ -24,9 +30,9 @@
       <th class="table-light">会員ステータス</th>
       <td>
         <% if customer.is_deleted == false %>
-          有効
+          <span class="text-success">有効</span>
         <% else %>
-          退会
+          <span class="text-secondary">退会</span>
         <% end %>
       </td>
     </tr>
