@@ -1,32 +1,40 @@
 <% provide(:title, "管理者 トップページ") %>
 <div class="container">
-  <h4>注文の一覧</h4>
+  <div class="row mx-auto">
+    <p class="h4 mt-4 mb-5">注文履歴一覧</p>
+  </div>
   <div class="row">
     <div class="col-md-12">
-      <table class="table table-bordered">
+      <table class="table">
         <thead>
-          <tr>
-            <th>注文日</th>
-            <th>注文者</th>
-            <th>状況</th>
-            <th>詳細</th>
+          <tr class="bg-light">
+            <th>注文日時</th>
+            <th>購入者</th>
+            <th>注文個数</th>
+            <th>注文ステータス</th>
           </tr>
         </thead>
         <tbody>
           <% @orders.each do |order| %>
             <tr>
-              <td><%= order.created_at.strftime('%Y/%m/%d') %></td>
+              <td>
+                <%= link_to admin_order_path(order), class: "text-dark" do %>
+                  <%= order.created_at.strftime('%Y/%m/%d %H:%M:%S') %>
+                <% end %>
               <td>
                 <%= order.customer.last_name %> <%= order.customer.first_name %>
               </td>
-              <td><%= order.status %></td>
               <td>
-                <%= link_to '表示する',admin_order_path(order), class: "btn btn-warning" %>
+                <%= order.order_details.group(:amount).count.reduce(0) {|sum, (key, value)| sum += key * value} %>
               </td>
+              <td><%= order.status %></td>
             </tr>
           <% end %>
         </tbody>
       </table>
+    </div>
+    <div class="col-md-12 d-flex justify-content-center">
+      <span class="kaminari"><%= paginate @orders %></span>
     </div>
   </div>
 </div>
