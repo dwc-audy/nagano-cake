@@ -22,10 +22,10 @@ class Public::OrdersController < ApplicationController
 
   def confirm
     @order = Order.new(order_params)
-  
-      
+
+
       if params[:order][:address_number]=="1"
-        
+
         if params[:order][:payment_method] != ""
           @order.postal_code = current_customer.postal_code
           @order.address = current_customer.address
@@ -34,9 +34,9 @@ class Public::OrdersController < ApplicationController
           flash[:ale] = "空欄はダメだよ"
           redirect_to new_order_path
         end
-  
+
       elsif params[:order][:address_number]=="2"
-        
+
         if params[:order][:payment_method] != ""
           @order.postal_code = Address.find(params[:order][:address_id]).postal_code
           @order.address = Address.find(params[:order][:address_id]).address
@@ -45,11 +45,18 @@ class Public::OrdersController < ApplicationController
           flash[:ale] = "空欄はダメだよ"
           redirect_to new_order_path
         end
-        
+
       elsif params[:order][:address_number]=="3"
-        
+
         if params[:order][:payment_method] != ""
-          
+
+            @address = Address.new()
+            @address.address = params[:order][:address]
+            @address.name = params[:order][:name]
+            @address.postal_code = params[:order][:postal_code]
+            @address.customer_id = current_customer.id
+            @address.save!
+
           if params[:order][:address] != "" && params[:order][:name] != "" && params[:order][:postal_code] != ""
             @order.address = params[:order][:address]
             @order.name = params[:order][:name]
@@ -59,12 +66,12 @@ class Public::OrdersController < ApplicationController
             flash[:alert] = "空欄はダメだよ"
             redirect_to new_order_path
           end
-          
+
         else
           flash[:ale] = "空欄はダメだよ"
           redirect_to new_order_path
         end
-      
+
       end
 
     @cart_items = CartItem.where(customer_id: current_customer.id)
@@ -77,16 +84,9 @@ class Public::OrdersController < ApplicationController
     @order = Order.new(order_params)
     @order.customer_id = current_customer.id
     @order.save!
-    
-    @address = Address.new()
-    @address.address = params[:order][:address]
-    @address.name = params[:order][:name] 
-    @address.postal_code = params[:order][:postal_code]
-    @address.customer_id = current_customer.id 
-    @address.save!
+
 
     @cart_items = CartItem.where(customer_id: current_customer.id)
-
     @cart_items.each do |cart_item|
       @order_details = OrderDetail.new
       @order_details.item_id = cart_item.item_id
@@ -95,10 +95,8 @@ class Public::OrdersController < ApplicationController
       @order_details.order_id = @order.id
       @order_details.save
     end
-
     @cart_items.destroy_all
     redirect_to orders_complete_path
-
   end
 
   def complete
@@ -107,5 +105,6 @@ class Public::OrdersController < ApplicationController
   private
   def order_params
     params.require(:order).permit(:customer_id, :postal_code, :address, :name, :total_payment, :payment_method, :shipping_cost)
+
   end
 end
