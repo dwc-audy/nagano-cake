@@ -12,6 +12,10 @@
         <p class="ml-3 font">¥<%= ((item.price * 1.1).floor).to_s(:delimited) %></p>
       </div>
     <% end %>
-    <span class="kaminari mx-auto"><%= paginate @items %></span>
+  </div>
+</div>
+<div class="row kaminari mx-auto">
+  <div class="col-md-12" style="display: flex; justify-content: center;">
+    <p><%= paginate @items %></p>
   </div>
 </div>
