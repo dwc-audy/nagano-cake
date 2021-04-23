@@ -1,13 +1,13 @@
 <% provide(:title, "管理者 会員詳細") %>
 <div class="container">
   <div class="row mt-4 mb-4">
-    <h4>会員詳細</h4>
+    <h4><%= @customer.last_name %><%= @customer.first_name %>さんの会員詳細</h4>
   </div>
   <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-8">
       <%= render 'shared/customer_show', customer: @customer %>
-      <%= link_to "編集", edit_admin_customer_path(@customer.id), class: "btn btn-success" %>
-      <%= link_to "注文履歴一覧", search_admin_homes_path(@customer.id), class: "btn btn-info" %>
+      <%= link_to "編集する", edit_admin_customer_path(@customer.id), class: "btn btn-success" %>
+      <%= link_to "注文履歴一覧を見る", search_admin_homes_path(@customer.id), class: "btn btn-primary" %>
     </div>
   </div>
 </div>

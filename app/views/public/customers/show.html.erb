@@ -3,12 +3,24 @@
   <div class="row mt-4 mb-4">
     <h4>マイページ</h4>
   </div>
-  <div class="row">
-    <div class="col-md-4">
+  <div class="col">
+    <div class="col-md-8">
+      <p class="h5 mt-4">登録情報</p>
       <%= render 'shared/customer_show', customer: @customer %>
-      <%= link_to "編集", edit_customers_path, class: "btn btn-success" %></br>
-      <%= link_to "配送先", addresses_path %> /
-      <%= link_to "注文履歴一覧", orders_path %>
+      <%= link_to "編集する", edit_customers_path, class: "btn btn-success" %>
+
+      <div class="col-md-5">
+      <table class="table table-borderless">
+        <tr>
+          <th class="align-middle"><p class="h5">配送先</p></th>
+          <td class="align-middle"><%= link_to "一覧を見る", addresses_path, class: "btn btn-primary" %></td>
+        </tr>
+        <tr>
+          <th class="align-middle"><p class="h5">注文履歴</p></th>
+          <td class="align-middle"><%= link_to "一覧を見る", orders_path, class: "btn btn-primary" %></td>
+        </tr>
+      </table>
+      </div>
     </div>
   </div>
 </div>
