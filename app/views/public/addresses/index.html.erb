@@ -1,17 +1,16 @@
-<% provide(:title, "配送先一覧") %>
+<% provide(:title, "配送先一覧/登録") %>
 <div class="container">
   <div class="row mx-auto">
-    <p class="h4 mt-4 mb-5">配送先一覧</p>
+    <p class="h4 mt-4 mb-5">配送先一覧 / 登録</p>
   </div>
   <div class="row">
     <div class="col-md-9">
-    <table class="table">
+    <table class="table table-bordered">
       <thead>
-        <tr>
+        <tr class="bg-light">
           <th>郵便番号</th>
           <th>住所</th>
           <th>宛先</th>
-          <th></th>
           <th></th>
         </tr>
       </thead>
@@ -21,8 +20,10 @@
             <td><%= address.postal_code %></td>
             <td><%= address.address %></td>
             <td><%= address.name %></td>
-            <td><%= link_to "編集", edit_address_path(address.id), class: "btn btn-primary" %></td>
-            <td><%= link_to "削除", address_path(address.id), method: :delete, class: "btn btn-danger" %></td>
+            <td class="text-center">
+              <%= link_to "編集する", edit_address_path(address.id), class: "btn btn-success" %>
+              <%= link_to "削除する", address_path(address.id), method: :delete, class: "btn btn-danger" %>
+            </td>
           </tr>
         <% end %>
       </tbody>

@@ -1,2 +1,7 @@
 <% provide(:title, "管理者 会員情報編集") %>
-<%= render 'shared/customer_edit', customer: @customer, path: admin_customer_path(@customer.id) %>
+<div class="container">
+  <div class="row mx-auto">
+    <p class="h4 mt-4 mb-5"><%= @customer.last_name %><%= @customer.first_name %>さんの会員情報編集</p>
+  </div>
+  <%= render 'shared/customer_edit', customer: @customer, path: admin_customer_path(@customer.id) %>
+</div>

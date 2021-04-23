@@ -1,2 +1,7 @@
 <% provide(:title, "会員情報編集") %>
-<%= render 'shared/customer_edit', customer: @customer, path: customers_path %>
+<div class="container">
+  <div class="row mx-auto">
+    <p class="h4 mt-4 mb-5">会員情報編集</p>
+  </div>
+  <%= render 'shared/customer_edit', customer: @customer, path: customers_path %>
+</div>
