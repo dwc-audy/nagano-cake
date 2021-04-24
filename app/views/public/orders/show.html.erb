@@ -1,82 +1,77 @@
 <% provide(:title, "注文履歴") %>
-<div class="container mt-5">
-  <div class="row mb-4">
-    <div class="col-md-12">
-      <h4>注文商品</h4>
+<div class="container">
+  <div class="row mx-auto">
+    <p class="h4 mt-4 mb-5">注文履歴詳細</p>
+  </div>
+  <div class="row">
+    <div class="col-md-8">
+      <p class="h5">注文情報</p>
+      <table class="table table-bordered">
+        <tr>
+          <th class="bg-light">注文日</th>
+          <td><%= @order.created_at.strftime('%Y/%m/%d') %></td>
+        </tr>
+        <tr>
+          <th class="bg-light">配送先</th>
+          <td>
+            〒<%= @order.postal_code.slice(0, 3) %>-<%= current_customer.postal_code.slice(3, 4) %>
+            <%= @order.address %><br>
+            <%= @order.name %>
+          </td>
+        </tr>
+        <tr>
+          <th class="bg-light">支払方法</th>
+          <td><%= @order.payment_method %></td>
+        </tr>
+        <tr>
+          <th class="bg-light">ステータス</th>
+          <td><%= @order.status %></td>
+        </tr>
+      </table>
+    </div>
+    <div class="col-md-4">
+      <p class="h5">請求情報</p>
+      <table class="table table-bordered">
+        <tr>
+          <th class="bg-light">商品合計</th>
+          <td><%= @sum.to_s(:delimited) %></td>
+        </tr>
+        <tr>
+          <th class="bg-light">配送料</th>
+          <td><%= @order.shipping_cost.to_s(:delimited) %></td>
+        </tr>
+        <tr>
+          <th class="bg-light">請求金額</th>
+          <td><%= (@sum + @order.shipping_cost).to_s(:delimited) %></td>
+        </tr>
+        </table>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-8">
+      <p class="h5">注文内容
       <table class="table table-bordered">
         <thead>
-          <tr>
-            <th>商品名</th>
-            <th>注文日</th>
+          <tr class="bg-light">
+            <th>商品</th>
             <th>単価（税込)</th>
-            <th>数量</th>
+            <th>個数</th>
             <th>小計</th>
           </tr>
         </thead>
         <tbody>
           <% @order_details.each do |order_detail| %>
-            <% @sum += (order_detail.price*1*order_detail.amount).floor %>
             <tr>
-              <td><%= order_detail.item.name %><%= attachment_image_tag order_detail.item, :image, size: "50x50" %></td>
-              <td><%= order_detail.created_at.strftime('%Y/%m/%d') %></td>
+              <td>
+                <%= attachment_image_tag order_detail.item, :image, size: "50x50" %>
+                <%= order_detail.item.name %>
+              </td>
               <td><%= ((order_detail.item.price * 1.1).floor).to_s(:delimited) %></td>
               <td><%= order_detail.amount %></td>
-              <td><%= ((order_detail.item.price * 1.1).floor) * order_detail.amount %></td>
+              <td><%= ((order_detail.item.price * 1.1).floor * order_detail.amount).to_s(:delimited) %></td>
             </tr>
           <% end %>
         </tbody>
       </table>
     </div>
   </div>
-
-  <div class="row mb-4">
-    <div class="col-md-8">
-      <h4>請求情報</h4>
-      <table class="table table-bordered">
-        <tr>
-          <th>支払い方法</th>
-          <td><%= @order.payment_method %></td>
-        </tr>
-        <tr>
-          <th>配送料</th>
-          <td><P>800円</P></td>
-        </tr>
-        <tr>
-          <th>請求金額</th>
-          <td><%= (@sum+800).to_s+"円" %></td>
-        </tr>
-      </table>
-    </div>
-    <div class="col-md-4">
-      <h4>入金状況</h4>
-      <table class="table table-bordered">
-        <tr>
-          <th>ステータス</th>
-          <td><%= @order.status %></td>
-        </tr>
-      </table>
-    </div>
-  </div>
-  
-  <div class="row mb-5">
-    <div class="col-md-8">
-      <h4>配送先情報</h4>
-      <table class="table table-bordered">
-        <tr>
-          <th>宛先</th>
-          <td><%= @order.name %></td>
-        </tr>
-        <tr>
-          <th>郵便番号</th>
-          <td><%= @order.postal_code %></td>
-        </tr>
-        <tr>
-          <th>住所</th>
-          <td><%= @order.address %></td>
-        </tr>
-      </table>
-    </div>
-  </div>
-</div>
-
-
