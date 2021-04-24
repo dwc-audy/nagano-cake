@@ -24,7 +24,7 @@
               <td>
                 〒<%= order.postal_code.slice(0, 3) %>-<%= current_customer.postal_code.slice(3, 4) %>
                 <%= order.address %><br>
-        　       <%= order.name %>
+                <%= order.name %>
               </td>
               <td>
                 <% order.order_details.each do |order_detail| %>
