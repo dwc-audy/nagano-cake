@@ -7,6 +7,8 @@ class Order < ApplicationRecord
   validates :postal_code,  presence: true
   validates :address,  presence: true
 
+  after_initialize :set_default_shipping_cost
+
   enum payment_method:{
     クレジットカード: 0,
     銀行振込: 1,
@@ -19,5 +21,11 @@ class Order < ApplicationRecord
     発送準備中: 3,
     発送済み: 4
   }
+
+  private
+
+  def set_default_shipping_cost
+    self.shipping_cost ||= 800
+  end
 
 end

@@ -1,36 +1,41 @@
 <% provide(:title, "管理者 注文履歴詳細") %>
 <div class="container  mt-5">
-  <h5>注文詳細</h5>
+  <div class="row mx-auto">
+    <p class="h4 mt-4 mb-5">注文履歴詳細</p>
+  </div>
   <div class="row">
-    <div class="col-md-5">
-      <table class="table table-bordered">
+    <div class="col-md-6">
+      <table class="table table-borderless">
         <tr>
           <th>購入者</th>
-          <td><%= @order.customer.last_name %> <%= @order.customer.first_name %></td>
+          <td>
+            <%= link_to admin_customer_path(@order.customer.id), class: "text-dark" do %>
+              <%= @order.customer.last_name %> <%= @order.customer.first_name %>
+            <% end %>
+          </td>
         </tr>
         <tr>
           <th>注文日</th>
           <td><%= @order.created_at.strftime('%Y/%m/%d') %></td>
         </tr>
-      </table>
-    </div>
-    <div class="col-md-7">
-    <%= flash[:alert] %>
-      <table class="table table-bordered">
+        <tr>
+          <th>配送先</th>
+          <td>
+            〒<%= @order.postal_code.slice(0, 3) %>-<%= @order.postal_code.slice(3, 4) %>
+             <%= @order.address %><br>
+            <%= @order.name %>
+          </td>
+        </tr>
         <tr>
           <th>支払い方法</th>
           <td><%= @order.payment_method %></td>
         </tr>
         <tr>
-          <th>請求額</th>
-          <td><%= @order.total_payment %></td>
-        </tr>
-        <tr>
-          <th>入金状態</th>
-          <td>
-            <%= form_with(model: @order, url: admin_order_path, local: true, class: "form-row") do |f| %>
+          <th class="align-middle">注文ステータス</th>
+          <td class="align-middle">
+            <%= form_with(model: @order, url: admin_order_path, local: true) do |f| %>
               <%= f.select :status, Order.statuses.keys.to_a %>
-              <%= f.submit "更新する" %>
+              <%= f.submit "更新", class: "btn btn-success" %>
             <% end %>
           </td>
         </tr>
@@ -38,16 +43,17 @@
     </div>
   </div>
 
-  <h5>注文商品</h5>
   <%= flash[:success1] %>
   <%= flash[:success2] %>
-  <div class="row">
-    <div class="col-md-10">
-      <table class="table table-bordered">
+  <div class="row d-flex justify-content-between align-items-end">
+    <div class="col-md-8">
+      <table class="table">
         <thead>
-          <tr>
+          <tr class="bg-light">
             <th>商品名</th>
+            <th>単価(税込み)</th>
             <th>数量</th>
+            <th>小計</th>
             <th>製作ステータス</th>
             <th></th>
           </tr>
@@ -55,47 +61,40 @@
         <tbody>
           <% @order_details.each do |order_detail| %>
             <tr>
-              <td>
+              <td class="align-middle">
                 <%= order_detail.item.name %>
               </td>
-              <td>
+              <td class="align-middle"><%= order_detail.price.to_s(:delimited) %></td>
+              <td class="align-middle">
                 <%= order_detail.amount %>
               </td>
-              <td>
-                <%= order_detail.making_status %>
+              <td class="align-middle"><%= (order_detail.price * order_detail.amount).to_s(:delimited) %></td>
+              <td class="align-middle">
+                <%= form_with(model: order_detail, url: admin_order_detail_path(order_detail),local: true) do |f| %>
+                  <%= f.select :making_status, OrderDetail.making_statuses.keys.to_a %>
+                  <%= f.submit "更新", class: "btn btn-success" %>
+                <% end %>
               </td>
-             <%= form_with(model: order_detail, url: admin_order_detail_path(order_detail),local: true) do |f| %>
-              <td>
-                <%= f.select :making_status, OrderDetail.making_statuses.keys.to_a %>
-                <%= f.submit "更新する" %>
-              </td>
-             <% end %>
             </tr>
           <% end %>
         </tbody>
       </table>
     </div>
-  </div>
-
-　<h5>配送先について</h5>
-  <div class="row">
-    <div class="col-md-8">
-      <table class="table table-bordered">
+    <div class="col-md-3">
+      <table class="table table-borderless">
         <tr>
-          <th>宛先</th>
-          <td><%= @order.name %></td>
+          <th>商品合計</th>
+          <td><%= @order.total_payment.to_s(:delimited) %>円</td>
         </tr>
         <tr>
-          <th>郵便番号</th>
-          <td><%= @order.postal_code %></td>
+          <th>送料</th>
+          <td><%= @order.shipping_cost.to_s(:delimited) %>円</td>
         </tr>
         <tr>
-          <th>住所</th>
-          <td><%= @order.address %></td>
+          <th>請求金額合計</th>
+          <td><%= (@order.total_payment + @order.shipping_cost).to_s(:delimited) %>円</td>
         </tr>
       </table>
     </div>
   </div>
-</div>
-
 

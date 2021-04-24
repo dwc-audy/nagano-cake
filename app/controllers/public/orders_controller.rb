@@ -18,6 +18,9 @@ class Public::OrdersController < ApplicationController
     @order = Order.find(params[:id])
     @order_details = @order.order_details
     @sum = 0
+    @order_details.each do |order_detail|
+      @sum += (order_detail.price * 1.1 * order_detail.amount).floor
+    end
   end
 
   def confirm

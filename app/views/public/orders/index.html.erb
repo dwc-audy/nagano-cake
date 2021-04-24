@@ -1,17 +1,20 @@
 <% provide(:title, "注文履歴一覧") %>
 
 <div class="container">
+  <div class="row mx-auto">
+    <p class="h4 mt-4 mb-5">注文履歴一覧</p>
+  </div>
   <div class="row">
-    <h4>注文一覧</h4>
     <div class="col-md-12">
       <table class="table table-bordered">
         <thead>
-          <tr>
+          <tr class="bg-light">
             <th>注文日</th>
+            <th>配送先</th>
             <th>注文商品</th>
             <th>支払金額</th>
-            <th>状況</th>
-            <th>詳細</th>
+            <th>ステータス</th>
+            <th>注文詳細</th>
           </tr>
         </thead>
         <tbody>
@@ -19,14 +22,19 @@
             <tr>
               <td><%= order.created_at.strftime('%Y/%m/%d') %></td>
               <td>
+                〒<%= order.postal_code.slice(0, 3) %>-<%= current_customer.postal_code.slice(3, 4) %>
+                <%= order.address %><br>
+                <%= order.name %>
+              </td>
+              <td>
                 <% order.order_details.each do |order_detail| %>
                   <%= order_detail.item.name %><br>
                 <% end %>
               </td>
-              <td><%= order.total_payment+800 %></td>
+              <td><%= (order.total_payment + order.shipping_cost).to_s(:delimited) %>円</td>
               <td><%= order.status %></td>
-              <td>
-                <%= link_to '表示する', order_path(order), class: "btn btn-warning" %>
+              <td class="align-middle text-center">
+                <%= link_to '表示する', order_path(order), class: "btn btn-primary" %>
               </td>
             </tr>
           <% end %>
