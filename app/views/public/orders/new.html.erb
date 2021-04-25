@@ -28,6 +28,11 @@
           </tr>
         </thead>
       </table>
+      <% if flash[:alert] %>
+        <div class="flash h5 mt-3 text-danger">
+          <%= flash[:alert] %>
+        </div>
+      <% end %>
       <div id="p1">
         <%= current_customer.last_name %><%= current_customer.first_name %>
       　〒<%= current_customer.postal_code.slice(0, 3) %>-<%= current_customer.postal_code.slice(3, 4) %>
@@ -40,11 +45,6 @@
                                 class: 'selectpicker form-control' %>
       </div>
       <div id="p3">
-        <% if flash[:alert] %>
-          <div class="flash h5 mt-3 text-danger">
-            <%= flash[:alert] %>
-          </div>
-        <% end %>
         <span>＊ご記入下さい＊</span><br>
         <div class="form-group">
           <%= f.label :name, "配送先宛名" %>

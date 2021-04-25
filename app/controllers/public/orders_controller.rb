@@ -31,7 +31,8 @@ class Public::OrdersController < ApplicationController
     @radio_check1 = ""
     @radio_check2 = ""
     @radio_check3 = ""
-
+    flash[:ale] = false
+    flash[:alert] = false
 
       if params[:order][:address_number]=="1"
 
@@ -48,10 +49,19 @@ class Public::OrdersController < ApplicationController
       elsif params[:order][:address_number]=="2"
 
         if params[:order][:payment_method] != ""
-          @order.postal_code = Address.find(params[:order][:address_id]).postal_code
-          @order.address = Address.find(params[:order][:address_id]).address
-          @order.name = Address.find(params[:order][:address_id]).name
+          if params[:order][:address_id] == ""
+            flash[:alert] = "空欄はダメだよ"
+            @radio_check2 = "checked"
+            render 'new'
+          else
+            @order.postal_code = Address.find(params[:order][:address_id]).postal_code
+            @order.address = Address.find(params[:order][:address_id]).address
+            @order.name = Address.find(params[:order][:address_id]).name
+          end
         else
+          if params[:order][:address_id] == ""
+            flash[:alert] = "空欄はダメだよ"
+          end
           flash[:ale] = "空欄はダメだよ"
           @radio_check2 = "checked"
           render 'new'
