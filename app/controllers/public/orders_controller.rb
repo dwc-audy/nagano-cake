@@ -11,6 +11,8 @@ class Public::OrdersController < ApplicationController
     @radio_check1 = "checked"
     @radio_check2 = ""
     @radio_check3 = ""
+    flash[:ale] = false
+    flash[:alert] = false
   end
 
   def index
@@ -76,20 +78,20 @@ class Public::OrdersController < ApplicationController
             @address.name = params[:order][:name]
             @address.postal_code = params[:order][:postal_code]
             @address.customer_id = current_customer.id
-            @address.save!
-
-          if params[:order][:address] != "" && params[:order][:name] != "" && params[:order][:postal_code] != ""
-            @order.address = params[:order][:address]
-            @order.name = params[:order][:name]
-            @order.postal_code = params[:order][:postal_code]
-            @order.customer_id = current_customer.id
-          else
-            flash[:alert] = "空欄はダメだよ"
-            render 'new'
-          end
+            if @address.save
+              @order.address = params[:order][:address]
+              @order.name = params[:order][:name]
+              @order.postal_code = params[:order][:postal_code]
+            else
+              flash[:alert] = "空欄はダメだよ"
+              render 'new'
+            end
 
         else
           flash[:ale] = "空欄はダメだよ"
+          if params[:order][:address] == "" || params[:order][:name] == "" || params[:order][:postal_code] == ""
+            flash[:alert] = "空欄はダメだよ"
+          end
           @radio_check3 = "checked"
           render 'new'
         end
