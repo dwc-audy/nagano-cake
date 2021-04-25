@@ -101,5 +101,12 @@
 		$("#p2").hide();
 		$("#p3").show();
 	});
+
+// 	reload対策
+	$(function(){
+	  let path = location.pathname;
+    let pattern = "orders/confirm"
+    if(path.match(pattern)) history.replaceState(null,null,"/orders/new");
+	});
 </script>
 
