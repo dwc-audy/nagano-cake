@@ -6,9 +6,9 @@
   <%= form_with(model: @order, local: true, url: orders_confirm_path, method: :post) do |f| %>
     <div class="col-md-8">
       <p class="h5">支払方法</p>
-      <% if flash[:ale] %>
+      <% if flash[:alert_pay] %>
         <div class="flash h5 mt-3 text-danger">
-          <%= flash[:ale] %>
+          <%= flash[:alert_pay] %>
         </div>
       <% end %>
       <div class="form-group">
