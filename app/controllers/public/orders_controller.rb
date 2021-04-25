@@ -8,6 +8,9 @@ class Public::OrdersController < ApplicationController
     @order = Order.new
     @customer = current_customer
     @address = Address.new
+    @radio_check1 = "checked"
+    @radio_check2 = ""
+    @radio_check3 = ""
   end
 
   def index
@@ -25,6 +28,9 @@ class Public::OrdersController < ApplicationController
 
   def confirm
     @order = Order.new(order_params)
+    @radio_check1 = ""
+    @radio_check2 = ""
+    @radio_check3 = ""
 
 
       if params[:order][:address_number]=="1"
@@ -35,7 +41,8 @@ class Public::OrdersController < ApplicationController
           @order.name = current_customer.last_name + current_customer.first_name
         else
           flash[:ale] = "空欄はダメだよ"
-          redirect_to new_order_path
+          @radio_check1 = "checked"
+          render 'new'
         end
 
       elsif params[:order][:address_number]=="2"
@@ -46,7 +53,8 @@ class Public::OrdersController < ApplicationController
           @order.name = Address.find(params[:order][:address_id]).name
         else
           flash[:ale] = "空欄はダメだよ"
-          redirect_to new_order_path
+          @radio_check2 = "checked"
+          render 'new'
         end
 
       elsif params[:order][:address_number]=="3"
@@ -67,12 +75,13 @@ class Public::OrdersController < ApplicationController
             @order.customer_id = current_customer.id
           else
             flash[:alert] = "空欄はダメだよ"
-            redirect_to new_order_path
+            render 'new'
           end
 
         else
           flash[:ale] = "空欄はダメだよ"
-          redirect_to new_order_path
+          @radio_check3 = "checked"
+          render 'new'
         end
 
       end

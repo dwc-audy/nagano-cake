@@ -22,9 +22,9 @@
       <table class="table">
         <thead>
           <tr>
-            <th><%= f.radio_button :address_number,1,checked: "checked", id: 'button1' %> あなたの住所</th>
-            <th><%= f.radio_button :address_number,2, id: 'button2' %> 登録されている住所</th>
-            <th><%= f.radio_button :address_number,3, id: 'button3' %>新しい住所</th>
+            <th><%= f.radio_button :address_number, 1, checked: @radio_check1, id: 'button1' %> あなたの住所</th>
+            <th><%= f.radio_button :address_number, 2, checked: @radio_check2, id: 'button2' %> 登録されている住所</th>
+            <th><%= f.radio_button :address_number, 3, checked: @radio_check3, id: 'button3' %>新しい住所</th>
           </tr>
         </thead>
       </table>
@@ -69,10 +69,17 @@
 <script>
 
 	// 初期表示を非表示にする
-	$('#p1').show();
+	$('#p1').hide();
 	$('#p2').hide();
 	$('#p3').hide();
 
+	<% if @radio_check1 == "checked" %>
+	  $('#p1').show();
+	<% elsif @radio_check2 == "checked" %>
+	  $('#p2').show();
+	<% else %>
+	  $('#p3').show();
+	<% end %>
 
 	$("#button1").click(function() {
 		// 表示する
