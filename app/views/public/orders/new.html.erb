@@ -28,23 +28,28 @@
           </tr>
         </thead>
       </table>
-      <% if flash[:alert] %>
-        <div class="flash h5 mt-3 text-danger">
-          <%= flash[:alert] %>
-        </div>
-      <% end %>
       <div id="p1">
         <%= current_customer.last_name %><%= current_customer.first_name %>
       　〒<%= current_customer.postal_code.slice(0, 3) %>-<%= current_customer.postal_code.slice(3, 4) %>
       　<%= current_customer.address %>
       </div>
       <div id="p2">
-        <span>＊登録されている中からお選びください＊</span><br>
+        <% if flash[:alert2] %>
+        <div class="flash h5 mt-3 text-danger">
+          <%= flash[:alert2] %>
+        </div>
+        <% end %>
         <%= f.collection_select :address_id, current_customer.addresses, :id, :address_all,
+                                selected: @selected_delivery,
                                 include_blank: "＊お選びください＊",
                                 class: 'selectpicker form-control' %>
       </div>
       <div id="p3">
+        <% if flash[:alert3] %>
+          <div class="flash h5 mt-3 text-danger">
+            <%= flash[:alert3] %>
+          </div>
+        <% end %>
         <span>＊ご記入下さい＊</span><br>
         <div class="form-group">
           <%= f.label :name, "配送先宛名" %>

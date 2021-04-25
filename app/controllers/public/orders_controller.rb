@@ -8,12 +8,14 @@ class Public::OrdersController < ApplicationController
     @order = Order.new
     @customer = current_customer
     @address = Address.new
-    @selected_pay =false
+    @selected_pay = false
+    @selected_delivery = false
     @radio_check1 = "checked"
     @radio_check2 = ""
     @radio_check3 = ""
     flash[:ale] = false
-    flash[:alert] = false
+    flash[:alert2] = false
+    flash[:alert3] = false
   end
 
   def index
@@ -31,11 +33,14 @@ class Public::OrdersController < ApplicationController
 
   def confirm
     @order = Order.new(order_params)
+    @selected_pay = false
+    @selected_delivery = false
     @radio_check1 = ""
     @radio_check2 = ""
     @radio_check3 = ""
     flash[:ale] = false
-    flash[:alert] = false
+    flash[:alert2] = false
+    flash[:alert3] = false
 
       if params[:order][:address_number]=="1"
 
@@ -44,7 +49,7 @@ class Public::OrdersController < ApplicationController
           @order.address = current_customer.address
           @order.name = current_customer.last_name + current_customer.first_name
         else
-          flash[:ale] = "空欄はダメだよ"
+          flash[:ale] = "選択して下さい"
           @radio_check1 = "checked"
           render 'new'
         end
@@ -54,7 +59,7 @@ class Public::OrdersController < ApplicationController
         if params[:order][:payment_method] != ""
           @selected_pay = params[:order][:payment_method]
           if params[:order][:address_id] == ""
-            flash[:alert] = "空欄はダメだよ"
+            flash[:alert2] = "選択して下さい"
             @radio_check2 = "checked"
             render 'new'
           else
@@ -64,9 +69,10 @@ class Public::OrdersController < ApplicationController
           end
         else
           if params[:order][:address_id] == ""
-            flash[:alert] = "空欄はダメだよ"
+            flash[:alert2] = "選択して下さい"
           end
-          flash[:ale] = "空欄はダメだよ"
+          @selected_delivery = params[:order][:address_id]
+          flash[:ale] = "選択して下さい"
           @radio_check2 = "checked"
           render 'new'
         end
@@ -86,15 +92,15 @@ class Public::OrdersController < ApplicationController
               @order.postal_code = params[:order][:postal_code]
             else
               @selected_pay = params[:order][:payment_method]
-              flash[:alert] = "空欄はダメだよ"
+              flash[:alert3] = "空欄はダメだよ"
               @radio_check3 = "checked"
               render 'new'
             end
 
         else
-          flash[:ale] = "空欄はダメだよ"
+          flash[:ale] = "選択して下さい"
           if params[:order][:address] == "" || params[:order][:name] == "" || params[:order][:postal_code] == ""
-            flash[:alert] = "空欄はダメだよ"
+            flash[:alert3] = "空欄はダメだよ"
           end
           @radio_check3 = "checked"
           render 'new'
