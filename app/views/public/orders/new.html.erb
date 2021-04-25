@@ -12,7 +12,7 @@
         </div>
       <% end %>
       <div class="form-group">
-        <%= f.select :payment_method, options_for_select(Order.payment_methods.keys),
+        <%= f.select :payment_method, options_for_select(Order.payment_methods.keys, @selected_pay),
                       include_blank: "＊お選びください＊",
                       class: 'selectpicker form-control' %>
       </div>

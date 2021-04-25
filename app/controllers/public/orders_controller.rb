@@ -8,6 +8,7 @@ class Public::OrdersController < ApplicationController
     @order = Order.new
     @customer = current_customer
     @address = Address.new
+    @selected_pay =false
     @radio_check1 = "checked"
     @radio_check2 = ""
     @radio_check3 = ""
@@ -51,6 +52,7 @@ class Public::OrdersController < ApplicationController
       elsif params[:order][:address_number]=="2"
 
         if params[:order][:payment_method] != ""
+          @selected_pay = params[:order][:payment_method]
           if params[:order][:address_id] == ""
             flash[:alert] = "空欄はダメだよ"
             @radio_check2 = "checked"
@@ -83,7 +85,9 @@ class Public::OrdersController < ApplicationController
               @order.name = params[:order][:name]
               @order.postal_code = params[:order][:postal_code]
             else
+              @selected_pay = params[:order][:payment_method]
               flash[:alert] = "空欄はダメだよ"
+              @radio_check3 = "checked"
               render 'new'
             end
 
