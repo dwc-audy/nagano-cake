@@ -19,7 +19,7 @@
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropDown" aria-controls="navbarNavDropDown" aria-expanded="false" aria-label="Toggle navgation">
             <span class="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse" id="navbarNavDropDown">
+          <div class="collapse navbar-collapse flex-column align-items-end" id="navbarNavDropDown">
             <ul class="navbar-nav ml-auto">
               <% if admin_signed_in? %>
                 <li class="nav-item">
@@ -62,6 +62,15 @@
 
               <% end %>
             </ul>
+            <div class="form-inline">
+              <% if admin_signed_in? %>
+                <% if controller_name == "customers" %>
+                  <%= render 'admin/customers/form_search' %>
+                <% elsif controller_name == "items" %>
+                  <%= render 'admin/items/form_search' %>
+                <% end %>
+              <% end %>
+            </div>
           </div>
         </div>
       </nav>
