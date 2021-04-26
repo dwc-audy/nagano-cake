@@ -44,6 +44,7 @@ Rails.application.routes.draw do
       end
     end
     resources :items, only: [:new, :index, :create, :show, :edit, :update]
+    post 'items/search'
     resources :genres, only: [:index, :create, :edit, :update]
     resources :customers, only: [:index, :show, :edit, :update]
     post 'customers/search'
