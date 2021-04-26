@@ -5,7 +5,7 @@ class Public::AddressesController < ApplicationController
   layout 'public'
 
   def index
-    @addresses = current_customer.addresses
+    @addresses = current_customer.addresses.page(params[:page]).per(8)
     @address = Address.new
   end
 
