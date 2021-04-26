@@ -1,28 +1,24 @@
 $(function(){
-  let select = document.querySelector("#column");
-  select.onchange = event => {
-    if(select.value == "last_name"){
-      $("#value").attr("placeholder", "名前(姓)");
-    } else if(select.value == "first_name"){
-      $("#value").attr("placeholder", "名前(名)");
-    };
-  };
   let path = location.pathname;
-  let pattern = "admin/customers/search"
-  if(path.match(pattern)) history.replaceState(null,null,"/admin/customers");
+  let pattern_customers = "admin/customers/search";
+  let pattern_items = "admin/items/search";
+
+  if(path.match(pattern_customers)){
+    history.replaceState(null, null, "/admin/customers");
+  } else if(path.match(pattern_items)){
+    history.replaceState(null, null, "/admin/items");
+  }
 });
 $(function() {
   $(document).on('turbolinks:load', () => {
-    let select = document.querySelector("#column");
-    select.onchange = event => {
-    if(select.value == "last_name"){
-      $("#value").attr("placeholder", "名前(姓)");
-    } else if(select.value == "first_name"){
-      $("#value").attr("placeholder", "名前(名)");
-    };
-  };
   let path = location.pathname;
-  let pattern = "admin/customers/search"
-  if(path.match(pattern)) history.replaceState(null,null,"/admin/customers");
+  let pattern_customers = "admin/customers/search";
+  let pattern_items = "admin/items/search";
+
+  if(path.match(pattern_customers)){
+    history.replaceState(null, null, "/admin/customers");
+  } else if(path.match(pattern_items)){
+    history.replaceState(null, null, "/admin/items");
+  }
   });
 });

@@ -4,3 +4,14 @@
   <%= f.search_field :value_customer, placeholder: "名前(姓)", class: "form-control" %>
   <%= f.submit "会員を検索", class: "btn btn-outline-success" %>
 <% end %>
+
+<script>
+  var select = document.querySelector("#column_customer");
+  select.onchange = event => {
+    if(select.value == "last_name"){
+      $("#value_customer").attr("placeholder", "名前(姓)");
+    } else if(select.value == "first_name"){
+      $("#value_customer").attr("placeholder", "名前(名)");
+    }
+  };
+</script>
