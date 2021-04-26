@@ -17,7 +17,7 @@
         <tbody>
           <% @addresses.each do |address| %>
             <tr>
-              <td><%= address.postal_code %></td>
+              <td><%= address.postal_code.slice(0, 3) + "-" + address.postal_code.slice(3, 4) %></td>
               <td><%= address.address %></td>
               <td><%= address.name %></td>
               <td class="text-center">
