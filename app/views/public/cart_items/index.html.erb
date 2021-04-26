@@ -60,9 +60,11 @@
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-md-2 mx-auto mt-4 mb-4">
-      <p><%= link_to '情報入力に進む', new_order_path, class: "btn btn-success btn-block font"%></p>
+  <% if @cart_item != [] %>
+    <div class="row">
+      <div class="col-md-2 mx-auto mt-4 mb-4">
+          <p><%= link_to '情報入力に進む', new_order_path, class: "btn btn-success btn-block font"%></p>
+      </div>
     </div>
-  </div>
+  <% end %>
 </div>
