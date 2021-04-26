@@ -1,6 +1,6 @@
 class Public::OrdersController < ApplicationController
   before_action :authenticate_customer!
-
+  before_action :set_new_message, only:[:new, :confirm]
 
   layout 'public'
 
@@ -8,6 +8,7 @@ class Public::OrdersController < ApplicationController
     @order = Order.new
     @customer = current_customer
     @address = Address.new
+    @radio_check1 = "checked"
   end
 
   def index
@@ -25,57 +26,69 @@ class Public::OrdersController < ApplicationController
 
   def confirm
     @order = Order.new(order_params)
+    @selected_pay = params[:order][:payment_method]
+    select_radio = params[:order][:address_number]
+    @selected_delivery = params[:order][:address_id]
 
-
-      if params[:order][:address_number]=="1"
-
-        if params[:order][:payment_method] != ""
-          @order.postal_code = current_customer.postal_code
-          @order.address = current_customer.address
-          @order.name = current_customer.last_name + current_customer.first_name
-        else
-          flash[:ale] = "空欄はダメだよ"
-          redirect_to new_order_path
-        end
-
-      elsif params[:order][:address_number]=="2"
-
-        if params[:order][:payment_method] != ""
-          @order.postal_code = Address.find(params[:order][:address_id]).postal_code
-          @order.address = Address.find(params[:order][:address_id]).address
-          @order.name = Address.find(params[:order][:address_id]).name
-        else
-          flash[:ale] = "空欄はダメだよ"
-          redirect_to new_order_path
-        end
-
-      elsif params[:order][:address_number]=="3"
-
-        if params[:order][:payment_method] != ""
-
-            @address = Address.new()
-            @address.address = params[:order][:address]
-            @address.name = params[:order][:name]
-            @address.postal_code = params[:order][:postal_code]
-            @address.customer_id = current_customer.id
-            @address.save!
-
-          if params[:order][:address] != "" && params[:order][:name] != "" && params[:order][:postal_code] != ""
-            @order.address = params[:order][:address]
-            @order.name = params[:order][:name]
-            @order.postal_code = params[:order][:postal_code]
-            @order.customer_id = current_customer.id
-          else
-            flash[:alert] = "空欄はダメだよ"
-            redirect_to new_order_path
-          end
-
-        else
-          flash[:ale] = "空欄はダメだよ"
-          redirect_to new_order_path
-        end
-
+    case select_radio
+    when "1"
+      if @selected_pay.present?
+        @order.postal_code = current_customer.postal_code
+        @order.address = current_customer.address
+        @order.name = current_customer.last_name + current_customer.first_name
+      else
+        flash[:alert_pay] = "選択して下さい"
+        @radio_check1 = "checked"
+        render 'new'
       end
+    when "2"
+      if @selected_pay.present?
+        if @selected_delivery.present?
+          select_address = Address.find(@selected_delivery)
+          @order.postal_code = select_address.postal_code
+          @order.address = select_address.address
+          @order.name = select_address.name
+        else
+          flash[:alert2] = "選択して下さい"
+          @radio_check2 = "checked"
+          render 'new'
+        end
+      else
+        flash[:alert_pay] = "選択して下さい"
+        @radio_check2 = "checked"
+        if @selected_delivery.empty?
+          flash[:alert2] = "選択して下さい"
+        end
+        render 'new'
+      end
+    when "3"
+      new_postal_code = params[:order][:postal_code]
+      new_address = params[:order][:address]
+      new_name = params[:order][:name]
+      if @selected_pay.present?
+        @address = Address.new()
+        @address.postal_code = new_postal_code
+        @address.address = new_address
+        @address.name = new_name
+        @address.customer_id = current_customer.id
+        if @address.save
+          @order.postal_code = new_postal_code
+          @order.address = new_address
+          @order.name = new_name
+        else
+          flash[:alert3] = "空欄はダメだよ"
+          @radio_check3 = "checked"
+          render 'new'
+        end
+      else
+        flash[:alert_pay] = "選択して下さい"
+        if new_postal_code.empty? || new_address.empty? || new_name.empty?
+          flash[:alert3] = "空欄はダメだよ"
+        end
+        @radio_check3 = "checked"
+        render 'new'
+      end
+    end
 
     @cart_items = CartItem.where(customer_id: current_customer.id)
     @sum = 0
@@ -106,6 +119,18 @@ class Public::OrdersController < ApplicationController
   end
 
   private
+
+  def set_new_message
+    @selected_pay = false
+    @selected_delivery = false
+    @radio_check1 = ""
+    @radio_check2 = ""
+    @radio_check3 = ""
+    flash[:alert_pay] = false
+    flash[:alert2] = false
+    flash[:alert3] = false
+  end
+
   def order_params
     params.require(:order).permit(:customer_id, :postal_code, :address, :name, :total_payment, :payment_method, :shipping_cost)
 

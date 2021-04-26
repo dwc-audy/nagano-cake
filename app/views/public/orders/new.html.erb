@@ -6,13 +6,13 @@
   <%= form_with(model: @order, local: true, url: orders_confirm_path, method: :post) do |f| %>
     <div class="col-md-8">
       <p class="h5">支払方法</p>
-      <% if flash[:ale] %>
+      <% if flash[:alert_pay] %>
         <div class="flash h5 mt-3 text-danger">
-          <%= flash[:ale] %>
+          <%= flash[:alert_pay] %>
         </div>
       <% end %>
       <div class="form-group">
-        <%= f.select :payment_method, options_for_select(Order.payment_methods.keys),
+        <%= f.select :payment_method, options_for_select(Order.payment_methods.keys, @selected_pay),
                       include_blank: "＊お選びください＊",
                       class: 'selectpicker form-control' %>
       </div>
@@ -22,9 +22,9 @@
       <table class="table">
         <thead>
           <tr>
-            <th><%= f.radio_button :address_number,1,checked: "checked", id: 'button1' %> あなたの住所</th>
-            <th><%= f.radio_button :address_number,2, id: 'button2' %> 登録されている住所</th>
-            <th><%= f.radio_button :address_number,3, id: 'button3' %>新しい住所</th>
+            <th><%= f.radio_button :address_number, 1, checked: @radio_check1, id: 'button1' %> あなたの住所</th>
+            <th><%= f.radio_button :address_number, 2, checked: @radio_check2, id: 'button2' %> 登録されている住所</th>
+            <th><%= f.radio_button :address_number, 3, checked: @radio_check3, id: 'button3' %>新しい住所</th>
           </tr>
         </thead>
       </table>
@@ -34,15 +34,20 @@
       　<%= current_customer.address %>
       </div>
       <div id="p2">
-        <span>＊登録されている中からお選びください＊</span><br>
+        <% if flash[:alert2] %>
+        <div class="flash h5 mt-3 text-danger">
+          <%= flash[:alert2] %>
+        </div>
+        <% end %>
         <%= f.collection_select :address_id, current_customer.addresses, :id, :address_all,
+                                selected: @selected_delivery,
                                 include_blank: "＊お選びください＊",
                                 class: 'selectpicker form-control' %>
       </div>
       <div id="p3">
-        <% if flash[:alert] %>
+        <% if flash[:alert3] %>
           <div class="flash h5 mt-3 text-danger">
-            <%= flash[:alert] %>
+            <%= flash[:alert3] %>
           </div>
         <% end %>
         <span>＊ご記入下さい＊</span><br>
@@ -69,10 +74,17 @@
 <script>
 
 	// 初期表示を非表示にする
-	$('#p1').show();
+	$('#p1').hide();
 	$('#p2').hide();
 	$('#p3').hide();
 
+	<% if @radio_check1 == "checked" %>
+	  $('#p1').show();
+	<% elsif @radio_check2 == "checked" %>
+	  $('#p2').show();
+	<% else %>
+	  $('#p3').show();
+	<% end %>
 
 	$("#button1").click(function() {
 		// 表示する
@@ -93,6 +105,13 @@
 		$("#p1").hide();
 		$("#p2").hide();
 		$("#p3").show();
+	});
+
+// 	reload対策
+	$(function(){
+	  let path = location.pathname;
+    let pattern = "orders/confirm"
+    if(path.match(pattern)) history.replaceState(null,null,"/orders/new");
 	});
 </script>
 
