@@ -40,7 +40,7 @@ class Admin::ItemsController < ApplicationController
   end
 
   def search
-    value = params[:value]
+    value = params[:value_items]
     @items = Item.where("name LIKE ?", "%#{value}%").page(params[:page]).per(10)
     render 'index'
   end

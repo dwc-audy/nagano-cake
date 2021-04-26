@@ -23,8 +23,8 @@ class Admin::CustomersController < ApplicationController
   end
 
   def search
-    value = params[:value]
-    column = params[:column]
+    value = params[:value_customer]
+    column = params[:column_customer]
     @customers = Customer.where("#{column} LIKE ?", "%#{value}%").page(params[:page]).per(10)
     render 'index'
   end
