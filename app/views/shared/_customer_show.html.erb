@@ -15,7 +15,10 @@
   </tr>
   <tr>
     <th class="table-light">住所</th>
-    <td>〒<%= customer.postal_code %> <%= customer.address %></td>
+    <td>
+      〒<%= customer.postal_code.slice(0, 3) + "-" + customer.postal_code.slice(3, 4) %><br>
+      <%= customer.address %>
+    </td>
   </tr>
   <tr>
     <th class="table-light">電話番号</th>
