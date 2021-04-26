@@ -4,7 +4,7 @@
     <div class="col-md-3">
       <table class="table table-bordered">
         <thead>
-          <tr>
+          <tr class="bg-light">
             <th>ジャンル一覧</th>
           </tr>
         </thead>
@@ -16,6 +16,7 @@
           <% end %>
         </tbody>
       </table>
+      <%= paginate @genres %>
     </div>
     <div class="col-md-9">
       <div class="col-md-8 mx-auto my-5">
