@@ -41,9 +41,8 @@ class Public::CustomersController < ApplicationController
       :postal_code,
       :address,
       :telephone_number,
-      :email
+      :email,
     ]
     params.require(:customer).permit(list)
   end
-
 end

@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   devise_for :customers, skip: :all
   devise_scope :customer do
     get 'customers/sign_in' => 'public/sessions#new', as: 'new_customer_session'

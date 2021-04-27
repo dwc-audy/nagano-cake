@@ -4,7 +4,7 @@
     <h4><%= @customer.last_name %><%= @customer.first_name %>さんの会員詳細</h4>
   </div>
   <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-10 col-lg-8">
       <%= render 'shared/customer_show', customer: @customer %>
       <%= link_to "編集する", edit_admin_customer_path(@customer.id), class: "btn btn-success" %>
       <%= link_to "注文履歴一覧を見る", search_admin_homes_path(@customer.id), class: "btn btn-primary" %>

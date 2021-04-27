@@ -1,6 +1,6 @@
 <%= form_with model: address, local: true do |f| %>
   <div class="form-group">
-    <%= f.label :postal_code, "郵便番号(ハイフン不要):" %> <span class="badge badge-danger">必須</span><br />
+    <%= f.label :postal_code, "郵便番号(ハイフン不要)" %> <span class="badge badge-danger">必須</span><br />
     <%= f.text_field :postal_code, autofocus: true, placeholder: "例)3810000",
                       class: "form-control #{"is-invalid" if address.errors.include?(:postal_code)}" %>
     <%= render 'shared/errors', obj: address, column: :postal_code %>
@@ -14,7 +14,7 @@
   </div>
 
   <div class="form-group">
-    <%= f.label :name, "宛先:" %> <span class="badge badge-danger">必須</span><br />
+    <%= f.label :name, "宛先" %> <span class="badge badge-danger">必須</span><br />
     <%= f.text_field :name, autofocus: true, autofocus: true, placeholder: "例)長野花子",
                       class: "form-control #{"is-invalid" if address.errors.include?(:name)}" %>
     <%= render 'shared/errors', obj: address, column: :name %>

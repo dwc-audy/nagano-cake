@@ -1,23 +1,21 @@
 class Public::CartItemsController < ApplicationController
-
   before_action :authenticate_customer!
 
   layout 'public'
-
 
   def index
     @cart_item = CartItem.where(customer_id: current_customer)
   end
 
   def create
-    @cart_item =CartItem.new(cart_item_params)
+    @cart_item = CartItem.new(cart_item_params)
     @cart_item.customer_id = current_customer.id
 
     if @cart_item.save
       redirect_to cart_items_path
     else
       @item = Item.find_by(id: @cart_item.item_id)
-      redirect_to item_path(@item), flash: {alert: '※個数を選択して下さい'}
+      redirect_to item_path(@item), flash: { alert: '※個数を選択して下さい' }
     end
   end
 
@@ -45,6 +43,4 @@ class Public::CartItemsController < ApplicationController
   def cart_item_params
     params.require(:cart_item).permit(:item_id, :amount)
   end
-
-
 end

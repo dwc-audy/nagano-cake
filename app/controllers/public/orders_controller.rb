@@ -1,6 +1,6 @@
 class Public::OrdersController < ApplicationController
   before_action :authenticate_customer!
-  before_action :set_new_message, only:[:new, :confirm]
+  before_action :set_new_message, only: [:new, :confirm]
 
   layout 'public'
 
@@ -66,7 +66,7 @@ class Public::OrdersController < ApplicationController
       new_address = params[:order][:address]
       new_name = params[:order][:name]
       if @selected_pay.present?
-        @address = Address.new()
+        @address = Address.new
         @address.postal_code = new_postal_code
         @address.address = new_address
         @address.name = new_name
@@ -94,20 +94,17 @@ class Public::OrdersController < ApplicationController
     @sum = 0
   end
 
-
-
   def create
     @order = Order.new(order_params)
     @order.customer_id = current_customer.id
     @order.save!
-
 
     @cart_items = CartItem.where(customer_id: current_customer.id)
     @cart_items.each do |cart_item|
       @order_details = OrderDetail.new
       @order_details.item_id = cart_item.item_id
       @order_details.amount = cart_item.amount
-      @order_details.price = (cart_item.item.price*1.1).floor
+      @order_details.price = (cart_item.item.price * 1.1).floor
       @order_details.order_id = @order.id
       @order_details.save
     end
@@ -132,7 +129,15 @@ class Public::OrdersController < ApplicationController
   end
 
   def order_params
-    params.require(:order).permit(:customer_id, :postal_code, :address, :name, :total_payment, :payment_method, :shipping_cost)
-
+    list = [
+      :customer_id,
+      :postal_code,
+      :address,
+      :name,
+      :total_payment,
+      :payment_method,
+      :shipping_cost,
+    ]
+    params.require(:order).permit(list)
   end
 end
