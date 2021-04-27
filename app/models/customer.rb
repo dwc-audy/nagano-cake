@@ -18,4 +18,8 @@ class Customer < ApplicationRecord
   validates :postal_code, presence: true, format: { with: /\A\d{7}\z/i }
   validates :address, presence: true
   validates :telephone_number, presence: true, format: { with: /\A\d{10,11}\z/i }
+
+  def self.search(column, value)
+    Customer.where(Customer.sanitize_sql(["#{column} LIKE ?", "%#{value}%"]))
+  end
 end
