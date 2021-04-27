@@ -11,5 +11,4 @@ class Admin::HomesController < ApplicationController
     @orders = Order.where(customer_id: params[:format]).page(params[:page]).per(10)
     render 'top'
   end
-
 end

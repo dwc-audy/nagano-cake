@@ -45,7 +45,7 @@ class Admin::CustomersController < ApplicationController
       :address,
       :telephone_number,
       :email,
-      :is_deleted
+      :is_deleted,
     ]
     params.require(:customer).permit(list)
   end

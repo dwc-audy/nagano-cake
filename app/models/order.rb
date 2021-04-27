@@ -1,25 +1,24 @@
 class Order < ApplicationRecord
-
   has_many :order_details, dependent: :destroy
   belongs_to :customer
 
-  validates :name,  presence: true
-  validates :postal_code,  presence: true
-  validates :address,  presence: true
+  validates :name, presence: true
+  validates :postal_code, presence: true
+  validates :address, presence: true
 
   after_initialize :set_default_shipping_cost
 
-  enum payment_method:{
+  enum payment_method: {
     クレジットカード: 0,
     銀行振込: 1,
   }
 
-  enum status:{
+  enum status: {
     入金待ち: 0,
     入金確認: 1,
     製作中: 2,
     発送準備中: 3,
-    発送済み: 4
+    発送済み: 4,
   }
 
   private
@@ -27,5 +26,4 @@ class Order < ApplicationRecord
   def set_default_shipping_cost
     self.shipping_cost ||= 800
   end
-
 end
