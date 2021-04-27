@@ -129,6 +129,15 @@ class Public::OrdersController < ApplicationController
   end
 
   def order_params
-    params.require(:order).permit(:customer_id, :postal_code, :address, :name, :total_payment, :payment_method, :shipping_cost)
+    list = [
+      :customer_id,
+      :postal_code,
+      :address,
+      :name,
+      :total_payment,
+      :payment_method,
+      :shipping_cost,
+    ]
+    params.require(:order).permit(list)
   end
 end
