@@ -27,3 +27,27 @@
   * アイコン(Font-Awesome-Sass 5.13)
 * ページネーション機能（kaminari 1.2.1）
 * バリデーションの日本語表記（rails-I18n）
+
+## 使い方
+まず、リポジトリにクローンし、RubyGemsをインストールします。
+```
+$ bundle
+```
+次に、データベースへのマイグレーションを実行します。
+```
+$ rails db:migrate
+```
+管理者用のemailとpasswordをデータベースに登録します。
+```
+$ rails db:seed
+```
+管理者用のemailとpasswordは以下の通りです。
+- email: **hoge@hoge**
+- password: **hogehoge**
+
+最後に、サーバーを立ち上げます。ブラウザでの主なURLは以下の通りです。
+```
+$ rails s
+```
+- ホームページ: "/"
+- 管理者ログインページ: "/admin/sign_in"
