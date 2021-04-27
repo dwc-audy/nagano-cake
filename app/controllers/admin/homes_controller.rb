@@ -4,11 +4,13 @@ class Admin::HomesController < ApplicationController
   layout 'admin'
 
   def top
-    @orders = Order.page(params[:page]).per(10)
+    @orders = Order.order(" created_at DESC ").page(params[:page]).per(10)
   end
 
   def search
-    @orders = Order.where(customer_id: params[:format]).page(params[:page]).per(10)
+    @orders = Order.where(customer_id: params[:format]).
+      order(" created_at DESC ").
+      page(params[:page]).per(10)
     render 'top'
   end
 end
