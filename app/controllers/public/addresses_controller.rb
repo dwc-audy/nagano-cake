@@ -15,7 +15,7 @@ class Public::AddressesController < ApplicationController
     if @address.save
       redirect_to addresses_path
     else
-      @addresses = current_customer.addresses
+      @addresses = current_customer.addresses.page(params[:page]).per(8)
       render 'index'
     end
   end
