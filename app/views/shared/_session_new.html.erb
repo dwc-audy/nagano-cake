@@ -12,7 +12,7 @@
         </div>
       <% end %>
       <%= form_with model: resource, as: resource_name, url: session_path(resource_name) do |f| %>
-        <div class="col-md-5 mx-auto">
+        <div class="col-md-8 col-lg-5 mx-auto">
           <div class="form-group">
             <%= f.label :email, "メールアドレス" %><br />
             <%= f.email_field :email, autofocus: true, autocomplete: "email",
@@ -37,9 +37,9 @@
       <div class="col-md-12">
         <div class="col-md-6 mx-auto">
           <p class="h5 mt-4">会員登録がお済みでない方</p>
-        </div>
-        <div class="col-md-5 mx-auto">
-          <%= link_to "こちら", new_customer_registration_path(resource_name) %> から新規登録を行って下さい。
+          <p class="ml-4">
+            <%= link_to "こちら", new_customer_registration_path(resource_name) %> から新規登録を行って下さい。
+          </p>
         </div>
       </div>
     <% end %>
